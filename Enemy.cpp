@@ -18,5 +18,5 @@ Enemy::~Enemy()
 
 void Enemy::Draw(void)
 {
-	DrawGraph(500, 200, image[11], true);
+	DrawGraph(_pos.x, _pos.y, IMAGE_ID(_imageName)[_id], true);
 }

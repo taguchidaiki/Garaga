@@ -5,7 +5,7 @@ class Player :
 {
 public:
 	Player();
-	Player(Vector2 pos);
+	Player(Vector2  pos);
 	~Player();
 
 	void Draw(void);

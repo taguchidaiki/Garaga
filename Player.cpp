@@ -20,5 +20,5 @@ Player::~Player()
 
 void Player::Draw(void)
 {
-	DrawGraph(300, 200, image[0], true);
+	DrawGraph(_pos.x, _pos.y, IMAGE_ID(_imageName)[_id], true);
 }

@@ -8,27 +8,20 @@
 constexpr int SCREEN_SIZE_X = 800;
 constexpr int SCREEN_SIZE_Y = 600;
 
+
+int SysInit(void);
+
+
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
-
-	SetGraphMode(SCREEN_SIZE_X, SCREEN_SIZE_Y, 16);
-	ChangeWindowMode(true);
-	SetWindowText("1701320_“cŒû‘å‹M");
-	if (DxLib_Init() == -1)
-	{
-		return 0;
-	}
-
+	SysInit();
 	Obj *objs[2];
-	ImageMng *imgMng;
+	
+	objs[0] = new Player({300,200});
+	objs[1] = new Enemy({500,200});
 
-	imgMng = new ImageMng();
-	objs[0] = new Player();
-	objs[1] = new Enemy();
-
-	imgMng->GetID("image/flag.png");
-	SetDrawScreen(DX_SCREEN_BACK);
-
+	objs[0]->Init("image/char.png", { 30,32 }, { 10,10 },0);
+	objs[1]->Init("image/char.png", { 30,32 }, { 10,10 },10);
 
 
 	while ((ProcessMessage() == 0) && (CheckHitKey(KEY_INPUT_ESCAPE)) == 0)
@@ -50,3 +43,17 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 	return 0;
 }
+
+int SysInit(void)
+{
+	SetGraphMode(SCREEN_SIZE_X, SCREEN_SIZE_Y, 16);
+	ChangeWindowMode(true);
+	SetWindowText("1701320_“cŒû‘å‹M");
+	if (DxLib_Init() == -1)
+	{
+		return 0;
+	}
+	SetDrawScreen(DX_SCREEN_BACK);
+	return 0;
+}
+
