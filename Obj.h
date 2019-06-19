@@ -2,7 +2,13 @@
 #include <DxLib.h>
 #include <string>
 #include <common/ImageMng.h>
-#include "VECTOR2.h"
+#include <common/VECTOR2.h>
+
+enum OBJ_ID
+{
+	OBJ_PLAYER,
+	OBJ_ENEMY_START = 10,
+};
 
 class Obj
 {

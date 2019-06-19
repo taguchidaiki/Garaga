@@ -3,7 +3,7 @@
 
 Enemy::Enemy()
 {
-	//LoadDivGraph("image/char.png", 10 * 10, 10, 10, 30, 32, image, true);
+	
 }
 
 Enemy::Enemy(Vector2 pos)

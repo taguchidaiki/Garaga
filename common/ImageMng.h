@@ -16,6 +16,15 @@ public:
 		return instance;
 	}
 
+	static ImageMng&Getinstance(void)
+	{
+		if (s_instance == nullptr)
+		{
+			s_instance = new ImageMng();
+		}
+		return (*s_instance);
+	}
+
 	std::vector<int> GetID(std::string key);
 	std::vector<int> GetID(std::string key, Vector2 divSize, Vector2 divCnt);
 
@@ -25,5 +34,7 @@ private:
 	ImageMng& operator=(const ImageMng&) {};
 
 	std::map<std::string, std::vector<int>> imgMap;
+
+	static ImageMng *s_instance;
 };
 

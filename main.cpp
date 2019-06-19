@@ -1,5 +1,4 @@
 #include <DxLib.h>
-#include <main.h>
 #include <Obj.h>
 #include <Player.h>
 #include <Enemy.h>
@@ -14,14 +13,15 @@ int SysInit(void);
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
-	SysInit();
 	Obj *objs[2];
+	
+	SysInit();
 	
 	objs[0] = new Player({300,200});
 	objs[1] = new Enemy({500,200});
 
-	objs[0]->Init("image/char.png", { 30,32 }, { 10,10 },0);
-	objs[1]->Init("image/char.png", { 30,32 }, { 10,10 },10);
+	objs[0]->Init("image/char.png", { 30,32 }, { 10,10 },OBJ_PLAYER);
+	objs[1]->Init("image/char.png", { 30,32 }, { 10,10 },OBJ_ENEMY_START);
 
 
 	while ((ProcessMessage() == 0) && (CheckHitKey(KEY_INPUT_ESCAPE)) == 0)
@@ -32,6 +32,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		{
 			obj->Draw();
 		}
+
+		DrawGraph(0, 0, IMAGE_ID("image/frame.png")[0], true);
 
 		ScreenFlip();
 	}
@@ -51,7 +53,7 @@ int SysInit(void)
 	SetWindowText("1701320_“cŒû‘å‹M");
 	if (DxLib_Init() == -1)
 	{
-		return 0;
+		return -1;
 	}
 	SetDrawScreen(DX_SCREEN_BACK);
 	return 0;

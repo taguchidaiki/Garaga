@@ -8,10 +8,14 @@ public:
 	Player(Vector2  pos);
 	~Player();
 
-	void Draw(void);
+	//ƒˆ‰¼‘zŠÖ”’u‚«ê
+	void Draw(void) override;
+
+	//ŠÖ”’u‚«ê
+
 
 
 private:
-	int image[100];
+
 };
 
