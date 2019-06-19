@@ -10,9 +10,9 @@ Obj::~Obj()
 {
 }
 
-void Obj::Init(std::string imageName, Vector2 divSize, Vector2 divCnt, int id)
+void Obj::Init(std::string imageName, std::string fileName, Vector2 divSize, Vector2 divCnt, int id)
 {
-	ImageMng::GetInstance().GetID(imageName, divSize, divCnt);
+	ImageMng::GetInstance().GetID(imageName, fileName, divSize, divCnt);
 	_imageName = imageName;
 	_divSize = divSize;
 	_divCnt = divCnt;

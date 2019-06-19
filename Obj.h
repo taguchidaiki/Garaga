@@ -20,7 +20,7 @@ public:
 	virtual void Draw(void) = 0;
 
 	//ŠÖ”’u‚«ê
-	void Init(std::string imageName, Vector2 divSize, Vector2 divCnt,int id);
+	void Init(std::string imageName, std::string fileName, Vector2 divSize, Vector2 divCnt,int id);
 	void Draw(int id);
 
 protected:
