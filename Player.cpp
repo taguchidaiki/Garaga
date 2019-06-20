@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "_DebugConOut.h"
 
 
 
@@ -10,6 +11,7 @@ Player::Player()
 Player::Player(Vector2 pos)
 {
 	_pos = pos;
+	TRACE("%f,%f", pos.x,pos.y);
 }
 
 

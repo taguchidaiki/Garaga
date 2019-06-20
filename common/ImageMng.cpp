@@ -12,13 +12,14 @@ ImageMng::~ImageMng()
 {
 }
 
-const VecInt& ImageMng::GetID(std::string key)
+const VecInt& ImageMng::GetID(const std::string& key)
 {
 	GetID(key, key);
 	return imgMap[key];
 }
 
-const VecInt & ImageMng::GetID(std::string key, std::string fileName)
+//Ç±Ç±ÇÕLoadDivGraphî≈Ç…èëÇ´ä∑Ç¶â¬
+const VecInt & ImageMng::GetID(const std::string& key, const std::string& fileName)
 {
 	if (imgMap.find(key) == imgMap.end())
 	{
@@ -29,13 +30,14 @@ const VecInt & ImageMng::GetID(std::string key, std::string fileName)
 
 }
 
-const VecInt& ImageMng::GetID(std::string key, Vector2 divSize, Vector2 divCnt)
+const VecInt& ImageMng::GetID(const std::string& key, const Vector2& divSize, const Vector2& divCnt)
 {
 	GetID(key, key, divSize, divCnt);
+	
 	return imgMap[key];
 }
 
-const VecInt & ImageMng::GetID(std::string key, std::string fileName, Vector2 divSize, Vector2 divCnt)
+const VecInt & ImageMng::GetID(const std::string& key, const std::string& fileName, const Vector2& divSize, const Vector2& divCnt)
 {
 	if (imgMap.find(key) == imgMap.end())
 	{

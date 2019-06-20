@@ -23,6 +23,8 @@ public:
 	void Init(std::string imageName, std::string fileName, Vector2 divSize, Vector2 divCnt,int id);
 	void Draw(int id);
 
+
+
 protected:
 	Vector2 _pos;
 	std::string _imageName;
