@@ -146,6 +146,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="common\SceneMng.cpp" />
+    <ClCompile Include="Scene\GameClear.cpp" />
     <ClCompile Include="Scene\GameScene.cpp" />
     <ClCompile Include="Scene\BaseScene.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -157,6 +159,8 @@
     <ClCompile Include="_DebugConOut.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="common\SceneMng.h" />
+    <ClInclude Include="Scene\GameClear.h" />
     <ClInclude Include="Scene\GameScene.h" />
     <ClInclude Include="Scene\BaseScene.h" />
     <ClInclude Include="Enemy.h" />

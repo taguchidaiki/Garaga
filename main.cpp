@@ -1,10 +1,6 @@
 #include <DxLib.h>
 #include <main.h>
-#include <Obj.h>
-#include <Player.h>
-#include <Enemy.h>
-#include <common/ImageMng.h>
-#include "_DebugConOut.h"
+#include<common/SceneMng.h>
 
 constexpr int SCREEN_SIZE_X = 800;
 constexpr int SCREEN_SIZE_Y = 600;
@@ -22,8 +18,6 @@ int SysInit(void)
 		return -1;
 	}
 
-	TRACE("DXLIB‰Šú‰»Š®—¹\n");
-
 	SetDrawScreen(DX_SCREEN_BACK);
 	return 0;
 }
@@ -31,40 +25,9 @@ int SysInit(void)
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
-	Obj *objs[2];
-
-	
 	SysInit();
-	
-	_DebugConOut::GetInstance();
 
-	objs[0] = new Player({300,200});
-	objs[1] = new Enemy({500,200});
-
-	ImageMng::GetInstance().GetID("kyara","image/char.png", { 30,32 }, { 10,10 });
-
-	objs[0]->Init("kyara","image/char.png", { 30,32 }, { 10,10 },OBJ_PLAYER);
-	objs[1]->Init("kyara","image/char.png", { 30,32 }, { 10,10 },OBJ_ENEMY_START);
-	ImageMng::GetInstance().GetID("background", "image/frame.png");
-
-	while ((ProcessMessage() == 0) && (CheckHitKey(KEY_INPUT_ESCAPE)) == 0)
-	{
-		ClsDrawScreen();
-
-		for (auto obj : objs)
-		{
-			obj->Draw();
-		}
-
-		DrawGraph(0, 0, IMAGE_ID("background")[0], true);
-
-		ScreenFlip();
-	}
-
-	for (auto obj : objs)
-	{
-		delete obj;
-	}
+	lpSceneMng.Run();
 
 	return 0;
 }

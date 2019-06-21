@@ -17,7 +17,8 @@ public:
 private:
 	struct _DebugConOutDeleter 
 	{
-		//ここで関数の呼び出しを書く
+		//ここで関数の呼び出しを書く	
+		//ここでデリータを呼ぶ前にしておきたい処理などを書くこともできる
 		void operator()(_DebugConOut* debugConOut)const
 		{
 			delete debugConOut;

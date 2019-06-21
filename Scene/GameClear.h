@@ -1,11 +1,11 @@
 #pragma once
 #include "BaseScene.h"
-class GameScene :
+class GameClear :
 	public BaseScene
 {
 public:
-	GameScene();
-	~GameScene();
+	GameClear();
+	~GameClear();
 
 	unique_Base Update(unique_Base own)override;
 	SCN_ID GetScnID(void)override;
