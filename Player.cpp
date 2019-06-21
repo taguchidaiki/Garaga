@@ -11,7 +11,7 @@ Player::Player()
 Player::Player(Vector2 pos)
 {
 	_pos = pos;
-	TRACE("%f,%f", pos.x,pos.y);
+	TRACE("%f,%f\n", pos.x,pos.y);
 }
 
 

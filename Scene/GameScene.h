@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseScene.h"
+
 class GameScene :
 	public BaseScene
 {
@@ -8,6 +9,6 @@ public:
 	~GameScene();
 
 	unique_Base Update(unique_Base own)override;
-	SCN_ID GetScnID(void)override;
+	SCN_ID GetScnID(void)const override;
 };
 

@@ -1,6 +1,8 @@
 #pragma once
+#include <DxLib.h>
 #include <memory>
 #include <common/ImageMng.h>
+#include <_DebugConOut.h>
 
 enum class SCN_ID
 {
@@ -19,9 +21,7 @@ public:
 	BaseScene() {};
 	virtual ~BaseScene() {};
 	virtual  unique_Base Update(unique_Base own) = 0;
-	virtual SCN_ID GetScnID(void) = 0;
+	virtual SCN_ID GetScnID(void)const = 0;
 
-protected:
-	SCN_ID _id;
 };
 

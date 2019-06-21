@@ -1,7 +1,12 @@
 #pragma once
 #include <memory>
 #include <Scene/BaseScene.h>
+
 #define lpSceneMng SceneMng::GetInstance()
+
+constexpr int SCREEN_SIZE_X = 800;
+constexpr int SCREEN_SIZE_Y = 600;
+
 class SceneMng
 {
 public:
@@ -12,6 +17,8 @@ public:
 	}
 
 	void Run(void);
+
+	int SysInit(void);
 
 private:
 	//専用のデストラクタ

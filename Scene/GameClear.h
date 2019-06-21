@@ -8,6 +8,6 @@ public:
 	~GameClear();
 
 	unique_Base Update(unique_Base own)override;
-	SCN_ID GetScnID(void)override;
+	SCN_ID GetScnID(void)const override;
 };
 

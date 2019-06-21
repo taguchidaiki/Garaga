@@ -10,6 +10,7 @@ std::unique_ptr<SceneMng, SceneMng::SceneMngDeleter> SceneMng::s_Instance(new Sc
 
 void SceneMng::Run(void)
 {
+	SysInit();
 	ImageMng::GetInstance().GetID("kyara", "image/char.png", { 30,32 }, { 10,10 });
 	ImageMng::GetInstance().GetID("background", "image/frame.png");
 
@@ -30,6 +31,7 @@ void SceneMng::Run(void)
 	{
 		//activeSceneの所有権を引数のコピー側に渡して、その返り値をmain側のユニークポインタに渡してあげる
 		_activeScene = _activeScene->Update(std::move(_activeScene));
+
 		/*ClsDrawScreen();
 
 		for (auto obj : objs)
@@ -47,6 +49,20 @@ void SceneMng::Run(void)
 		delete obj;
 	}
 
+}
+
+int SceneMng::SysInit(void)
+{
+	SetGraphMode(SCREEN_SIZE_X, SCREEN_SIZE_Y, 16);
+	ChangeWindowMode(true);
+	SetWindowText("1701320_田口大貴");
+	if (DxLib_Init() == -1)
+	{
+		return -1;
+	}
+
+	SetDrawScreen(DX_SCREEN_BACK);
+	return 0;
 }
 
 SceneMng::SceneMng()

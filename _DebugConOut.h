@@ -7,12 +7,10 @@
 class _DebugConOut
 {
 public:
-
 	static _DebugConOut&GetInstance(void)
 	{
 		return (*s_Instance);
 	}
-
 	
 private:
 	struct _DebugConOutDeleter 
