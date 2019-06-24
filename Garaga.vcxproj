@@ -150,11 +150,11 @@
     <ClCompile Include="Scene\GameClear.cpp" />
     <ClCompile Include="Scene\GameScene.cpp" />
     <ClCompile Include="Scene\BaseScene.cpp" />
-    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="unit\Enemy.cpp" />
     <ClCompile Include="common\ImageMng.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Obj.cpp" />
-    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="unit\Obj.cpp" />
+    <ClCompile Include="unit\Player.cpp" />
     <ClCompile Include="common\VECTOR2.cpp" />
     <ClCompile Include="_DebugConOut.cpp" />
   </ItemGroup>
@@ -163,11 +163,11 @@
     <ClInclude Include="Scene\GameClear.h" />
     <ClInclude Include="Scene\GameScene.h" />
     <ClInclude Include="Scene\BaseScene.h" />
-    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="unit\Enemy.h" />
     <ClInclude Include="common\ImageMng.h" />
     <ClInclude Include="main.h" />
-    <ClInclude Include="Obj.h" />
-    <ClInclude Include="Player.h" />
+    <ClInclude Include="unit\Obj.h" />
+    <ClInclude Include="unit\Player.h" />
     <ClInclude Include="common\VECTOR2.h" />
     <ClInclude Include="_DebugConOut.h" />
   </ItemGroup>

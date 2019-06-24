@@ -21,7 +21,7 @@ public:
 	BaseScene() {};
 	virtual ~BaseScene() {};
 	virtual  unique_Base Update(unique_Base own) = 0;
-	virtual SCN_ID GetScnID(void)const = 0;
+	virtual SCN_ID GetScnID(void) = 0;
 
 };
 

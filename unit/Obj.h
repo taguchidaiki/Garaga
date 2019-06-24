@@ -1,6 +1,7 @@
 #pragma once
 #include <DxLib.h>
 #include <string>
+#include <memory>
 #include <common/ImageMng.h>
 #include <common/VECTOR2.h>
 
@@ -10,6 +11,18 @@ enum OBJ_ID
 	OBJ_ENEMY_START = 10,
 };
 
+enum class UNIT_ID
+{
+	PLAYER,
+	ENEMY,
+	MAX
+};
+
+class Obj;
+
+using unique_Obj = std::unique_ptr<Obj>;
+using shared_Obj = std::shared_ptr<Obj>;
+
 class Obj
 {
 public:
@@ -17,7 +30,8 @@ public:
 	virtual ~Obj();
 
 	//ƒˆ‰¼‘zŠÖ”’u‚«ê
-	virtual void Draw(void) = 0;
+	virtual void Draw(void);
+	virtual UNIT_ID GetUnitType(void) = 0;
 
 	//ŠÖ”’u‚«ê
 	void Init(std::string imageName, std::string fileName, Vector2 divSize, Vector2 divCnt,int id);

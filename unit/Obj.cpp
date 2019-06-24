@@ -10,6 +10,10 @@ Obj::~Obj()
 {
 }
 
+void Obj::Draw(void)
+{
+}
+
 void Obj::Init(std::string imageName, std::string fileName, Vector2 divSize, Vector2 divCnt, int id)
 {
 	ImageMng::GetInstance().GetID(imageName, fileName, divSize, divCnt);
