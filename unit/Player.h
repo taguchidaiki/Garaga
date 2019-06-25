@@ -15,6 +15,6 @@ public:
 	//ŠÖ”’u‚«ê
 
 private:
-
+	bool Init(void);
 };
 

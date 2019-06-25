@@ -9,7 +9,7 @@ Enemy::Enemy()
 Enemy::Enemy(Vector2 pos, std::string imageName, std::string fileName, Vector2 divSize, Vector2 divCnt, int id)
 {
 	_pos = pos;
-	Init(imageName, fileName, divSize, divCnt, id);
+	Obj::Init(imageName, fileName, divSize, divCnt, id);
 }
 
 
@@ -25,4 +25,9 @@ void Enemy::Draw(void)
 UNIT_ID Enemy::GetUnitType(void)
 {
 	return UNIT_ID::ENEMY;
+}
+
+bool Enemy::Init(void)
+{
+	return true;
 }

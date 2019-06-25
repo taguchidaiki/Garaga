@@ -17,6 +17,6 @@ public:
 
 
 private:
-	
+	bool Init(void);
 };
 

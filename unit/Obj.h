@@ -18,10 +18,18 @@ enum class UNIT_ID
 	MAX
 };
 
+enum class ANIM
+{
+	NORMAL,		//í èÌ
+	EX,			//ì¡éÍ
+	MAX
+};
+
 class Obj;
 
 using unique_Obj = std::unique_ptr<Obj>;
 using shared_Obj = std::shared_ptr<Obj>;
+using AnimVector = std::vector<std::pair<int,int>>;
 
 class Obj
 {
@@ -40,10 +48,15 @@ public:
 
 
 protected:
+	bool SetAnim(const ANIM key, const AnimVector &data);
+
 	Vector2 _pos;
 	std::string _imageName;
 	Vector2 _divSize;
 	Vector2 _divCnt;
 	int _id;
+
+private:
+	std::map<ANIM,AnimVector> _animMap;
 };
 

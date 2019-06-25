@@ -3,7 +3,8 @@
 #include <vector>
 #include <common/VECTOR2.h>
 
-#define IMAGE_ID(X) ImageMng::GetInstance().GetID(X)
+#define IMAGE_ID(KEY) (ImageMng::GetInstance().GetID(KEY))
+#define SET_IMAGE_ID(KEY,F_NAME) (ImageMng::GetInstance().GetID(KEY,F_NAME))
 
 using VecInt = std::vector<int>;
 

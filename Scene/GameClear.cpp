@@ -24,6 +24,7 @@ unique_Base GameClear::Update(unique_Base own)
 	}
 
 	ScreenFlip();
+
 	return std::move(own);
 }
 
