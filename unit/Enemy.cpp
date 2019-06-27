@@ -10,6 +10,7 @@ Enemy::Enemy(Vector2 pos, std::string imageName, std::string fileName, Vector2 d
 {
 	_pos = pos;
 	Obj::Init(imageName, fileName, divSize, divCnt, id);
+	Init();
 }
 
 
@@ -29,5 +30,12 @@ UNIT_ID Enemy::GetUnitType(void)
 
 bool Enemy::Init(void)
 {
+	AnimVector data;
+	data.reserve(2);
+	//data.push_back(std::make_pair(IMAGE_ID("ƒLƒƒƒ‰")[0], 30));
+	//data.emplace_back(std::make_pair(IMAGE_ID("ƒLƒƒƒ‰")[0], 30));
+	data.emplace_back(IMAGE_ID("kyara")[_id], 30);
+	data.emplace_back(IMAGE_ID("kyara")[_id + 1], 60);
+	SetAnim(ANIM::NORMAL, data);
 	return true;
 }

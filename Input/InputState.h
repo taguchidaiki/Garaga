@@ -26,7 +26,7 @@ public:
 
 	//ƒˆ‰¼‘zŠÖ”’u‚«ê
 	virtual void Update(void) = 0;
-	virtual const KeyMap& GetState(void) = 0;
+	virtual void GetState(void) = 0;
 
 	//ŠÖ”’u‚«ê
 	const KeyMap& state(void) const;

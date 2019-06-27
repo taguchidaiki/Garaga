@@ -16,7 +16,7 @@ void KeyState::Update(void)
 	GetHitKeyStateAll(_buf);
 }
 
-const KeyMap& KeyState::GetState(void)
+void KeyState::GetState(void)
 {
 
 }

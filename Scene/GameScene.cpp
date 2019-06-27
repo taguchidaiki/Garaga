@@ -34,7 +34,7 @@ unique_Base GameScene::Update(unique_Base own)
 	//shared_ptr‚Å‚Ìfor•¶‚Ì‘‚«•û
 	for (auto obj : _objList)
 	{
-		obj->Draw();
+		obj->Obj::Draw();
 	}
 
 	//unique_ptr‚Å‚Ìfor•¶‚Ì‘‚«•û

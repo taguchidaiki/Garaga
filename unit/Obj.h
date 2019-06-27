@@ -29,7 +29,8 @@ class Obj;
 
 using unique_Obj = std::unique_ptr<Obj>;
 using shared_Obj = std::shared_ptr<Obj>;
-using AnimVector = std::vector<std::pair<int,int>>;
+//first = ‰æ‘œ‚ÌID, second = ƒtƒŒ[ƒ€”;
+using AnimVector = std::vector<std::pair<int, int>>;
 
 class Obj
 {

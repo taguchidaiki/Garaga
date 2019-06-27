@@ -12,6 +12,18 @@ Obj::~Obj()
 
 void Obj::Draw(void)
 {
+	DrawGraph(_pos.x, _pos.y, _animMap[_animKey][_animFlame].first, true);
+
+	if (_animCnt >= _animMap[_animKey][_animFlame].second)
+	{
+		_animFlame++;
+		if (_animFlame >= _animMap[_animKey].size())
+		{
+			_animCnt = 0;
+			_animFlame = 0;
+		}
+	}
+	_animCnt++;
 }
 
 void Obj::Init(std::string imageName, std::string fileName, Vector2 divSize, Vector2 divCnt, int id)
@@ -57,11 +69,11 @@ bool Obj::animKey(const ANIM _animKey)
 
 bool Obj::SetAnim(const ANIM key, AnimVector& data)
 {
-	if (_animMap.find(key) == _animMap.end())
+	/*if (_animMap.find(key) == _animMap.end())
 	{
-		_animMap[key] = data;
-		return true;
+	_animMap[key] = data;
+	return true;
 	}
-
-	return false;
+	return false;*/
+	return _animMap.try_emplace(key, std::move(data)).second;
 }
