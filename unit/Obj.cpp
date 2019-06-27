@@ -28,7 +28,34 @@ void Obj::Draw(int id)
 	DrawGraph(_pos.x, _pos.y, IMAGE_ID(_imageName)[id], true);
 }
 
-bool Obj::SetAnim(const ANIM key, const AnimVector& data)
+const Vector2 Obj::pos(void) const
+{
+	return _pos;
+}
+
+bool Obj::pos(const Vector2 pos)
+{
+	_pos = pos;
+	return true;
+}
+
+const ANIM Obj::animKey(void) const
+{
+	return _animKey;
+}
+
+bool Obj::animKey(const ANIM _animKey)
+{
+	if ((_animKey < ANIM::NORMAL) || (ANIM::MAX < _animKey))
+	{
+		return false;
+	}
+
+	this->_animKey = _animKey;
+	return true;
+}
+
+bool Obj::SetAnim(const ANIM key, AnimVector& data)
 {
 	if (_animMap.find(key) == _animMap.end())
 	{

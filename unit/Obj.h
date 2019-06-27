@@ -44,11 +44,14 @@ public:
 	//ä÷êîíuÇ´èÍ
 	void Init(std::string imageName, std::string fileName, Vector2 divSize, Vector2 divCnt,int id);
 	void Draw(int id);
-
+	const Vector2 pos(void)const;
+	bool pos(const Vector2 pos);
+	const ANIM animKey(void) const;
+	bool animKey(const ANIM _animKey);
 
 
 protected:
-	bool SetAnim(const ANIM key, const AnimVector &data);
+	bool SetAnim(const ANIM key, AnimVector &data);
 
 	Vector2 _pos;
 	std::string _imageName;
@@ -58,5 +61,8 @@ protected:
 
 private:
 	std::map<ANIM,AnimVector> _animMap;
+	ANIM _animKey;
+	int _animFlame;
+	int _animCnt;
 };
 

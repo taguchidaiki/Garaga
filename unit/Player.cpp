@@ -34,12 +34,17 @@ UNIT_ID Player::GetUnitType(void)
 bool Player::Init(void)
 {
 	AnimVector data;
+	data.reserve(2);
 	//data.push_back(std::make_pair(IMAGE_ID("ƒLƒƒƒ‰")[0], 30));
 	//data.emplace_back(std::make_pair(IMAGE_ID("ƒLƒƒƒ‰")[0], 30));
 	data.emplace_back(IMAGE_ID("kyara")[0], 30);
 	data.emplace_back(IMAGE_ID("kyara")[1], 60);
-
 	SetAnim(ANIM::NORMAL, data);
+
+	data.reserve(1);
+	data.emplace_back(IMAGE_ID("kyara")[0], 60);
+	SetAnim(ANIM::EX, data);
+
 
 	return true;
 }
