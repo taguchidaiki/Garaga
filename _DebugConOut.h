@@ -1,8 +1,13 @@
 #pragma once
 #ifdef _DEBUG
+#include <Windows.h>
 #include <memory>
 
 #define TRACE(fmt, ...) printf(fmt, __VA_ARGS__)
+
+//#define AST(){//\
+//	//CHAR 
+//};
 
 class _DebugConOut
 {
@@ -33,4 +38,5 @@ private:
 };
 #else
 #define TRACE(fmt, ...)
+#define AST()
 #endif //_DEBUG

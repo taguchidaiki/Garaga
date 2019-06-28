@@ -10,6 +10,7 @@ public:
 
 	//ƒˆ‰¼‘zŠÖ”’u‚«ê
 	void Draw(void) override;
+	void Update(void)override;
 	UNIT_ID GetUnitType(void) override;
 
 

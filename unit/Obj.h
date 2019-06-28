@@ -41,6 +41,7 @@ public:
 	//ƒˆ‰¼‘zŠÖ”’u‚«ê
 	virtual void Draw(void);
 	virtual UNIT_ID GetUnitType(void) = 0;
+	virtual void Update(void) = 0;
 
 	//ŠÖ”’u‚«ê
 	void Init(std::string imageName, std::string fileName, Vector2 divSize, Vector2 divCnt,int id);

@@ -23,6 +23,10 @@ void Enemy::Draw(void)
 	DrawGraph(_pos.x, _pos.y, IMAGE_ID(_imageName)[_id], true);
 }
 
+void Enemy::Update(void)
+{
+}
+
 UNIT_ID Enemy::GetUnitType(void)
 {
 	return UNIT_ID::ENEMY;

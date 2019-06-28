@@ -8,6 +8,7 @@ enum class SCN_ID
 {
 	GAME,
 	CLEAR,
+	CONFIG,
 	MAX
 };
 //BaseSceneはusingの下で宣言されているからusingのところで使えるようにプロトタイプ宣言

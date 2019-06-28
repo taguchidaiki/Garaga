@@ -26,6 +26,27 @@ void Player::Draw(void)
 	DrawGraph(_pos.x, _pos.y, IMAGE_ID(_imageName)[_id], true);
 }
 
+void Player::Update(void)
+{
+	(*_input).Update();
+	if ((*_input).state(INPUT_ID::LEFT).second)
+	{
+		_pos.x -= 2;
+	}
+	if ((*_input).state(INPUT_ID::RIGHT).second)
+	{
+		_pos.x += 2;
+	}
+	if ((*_input).state(INPUT_ID::UP).second)
+	{
+		_pos.y -= 2;
+	}
+	if ((*_input).state(INPUT_ID::DOWN).second)
+	{
+		_pos.y += 2;
+	}
+}
+
 UNIT_ID Player::GetUnitType(void)
 {
 	return UNIT_ID::PLAYER;
@@ -45,6 +66,7 @@ bool Player::Init(void)
 	data.emplace_back(IMAGE_ID("kyara")[0], 60);
 	SetAnim(ANIM::EX, data);
 
+	_input = std::make_unique<KeyState>();
 
 	return true;
 }

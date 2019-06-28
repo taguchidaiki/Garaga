@@ -1,5 +1,6 @@
 #include "GameScene.h"
 #include "GameClear.h"
+#include "KeyConfig.h"
 #include <unit/Player.h>
 #include <unit/Enemy.h>
 
@@ -29,6 +30,15 @@ unique_Base GameScene::Update(unique_Base own)
 	if (CheckHitKey(KEY_INPUT_F5))
 	{
 		return std::make_unique<GameClear>();
+	}
+	if (CheckHitKey(KEY_INPUT_F1))
+	{
+		return std::make_unique<KeyConfig>();
+	}
+
+	for (auto obj : _objList)
+	{
+		obj->Update();
 	}
 
 	//shared_ptr‚Å‚Ìfor•¶‚Ì‘‚«•û
