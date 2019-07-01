@@ -19,14 +19,18 @@ void KeyState::Update(void)
 {
 	SetOld();
 	GetHitKeyStateAll(_buf);
-	(KeyState().func)();
-	//(&func)();
-	//(KeyState::&func)();
+	(this->*func)();
 
 }
 
 void KeyState::RefKeyData(void)
 {
+	if (_buf[KEY_INPUT_F1])
+	{
+		TRACE("キーコンフィグモード\n");
+		func = &KeyState::SetKeyConfig;
+	}
+
 	for (auto key : INPUT_ID())
 	{
 		state(key, _buf[_keyCon[static_cast<int>(key)]]);
@@ -39,4 +43,5 @@ void KeyState::RefKeyData(void)
 
 void KeyState::SetKeyConfig(void)
 {
+
 }
