@@ -11,11 +11,10 @@ public:
 	void Update(void)override;
 
 private:
-	void RefKeyData(void);
-	void SetKeyConfig(void);
-
 	char _buf[256];
 	std::vector<int> _keyCon;
+	INPUT_ID _confID;
+	int _lastKeyID;
 	int _keyTbl[8] = 
 	{
 		KEY_INPUT_LEFT,
@@ -27,6 +26,11 @@ private:
 		KEY_INPUT_A,
 		KEY_INPUT_S
 	};
+
+	//キーのチェック用関数
+	void RefKeyData(void);
+	//
+	void SetKeyConfig(void);
 	//関数ポインタのメンバ関数へのポインタ関数
 	void (KeyState::*func)(void);
 };
