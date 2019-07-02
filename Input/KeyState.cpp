@@ -8,7 +8,7 @@ KeyState::KeyState()
 		//_keyCon.reserve(static_cast<size_t>(end(INPUT_ID())));
 		_keyCon.resize(static_cast<size_t>(end(INPUT_ID())));
 		fopen_s(&file,"data/key.dat","rb");
-		fread(&_keyCon, _keyCon[0], _keyCon.size(), file);
+		fread(&_keyCon[0], sizeof(size_t), _keyCon.size(), file);
 		fclose(file);
 	}
 	catch(...)
@@ -82,7 +82,7 @@ void KeyState::SetKeyConfig(void)
 					FILE *file;
 					fopen_s(&file,"data/key.dat","wb");
 					t = _keyCon[0];
-					fwrite(&_keyCon,_keyCon[0],_keyCon.size(),file);
+					fwrite(&_keyCon[0],sizeof(size_t),_keyCon.size(),file);
 					fclose(file);
 					
 				}
