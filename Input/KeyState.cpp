@@ -5,20 +5,26 @@ KeyState::KeyState()
 	try
 	{
 		FILE *file;
-		fopen_s(&file,"data/key.dat","r");
-
+		//_keyCon.reserve(static_cast<size_t>(end(INPUT_ID())));
+		_keyCon.resize(static_cast<size_t>(end(INPUT_ID())));
+		fopen_s(&file,"data/key.dat","rb");
+		fread(&_keyCon, _keyCon[0], _keyCon.size(), file);
 		fclose(file);
 	}
 	catch(...)
 	{
-
+		for (auto key : _keyTbl)
+		{
+			_keyCon.emplace_back(key);
+		}
 	}
-	_keyCon.reserve(static_cast<size_t>(end(INPUT_ID())));
+	/*_keyCon.reserve(static_cast<size_t>(end(INPUT_ID())));
 	for (auto key : _keyTbl)
 	{
 		_keyCon.emplace_back(key);
-	}
+	}*/
 	func = &KeyState::RefKeyData;
+	
 }
 
 
@@ -38,9 +44,9 @@ void KeyState::RefKeyData(void)
 {
 	if (_buf[KEY_INPUT_F1])
 	{
+		_confID = begin(INPUT_ID());
 		TRACE("キーコンフィグモード\n");
 		TRACE("設定キー%d\n", _confID);
-		_confID = begin(INPUT_ID());
 		func = &KeyState::SetKeyConfig;
 	}
 
@@ -71,7 +77,23 @@ void KeyState::SetKeyConfig(void)
 			TRACE("設定キー%d\n", _confID);
 			if (_confID == end(INPUT_ID()))
 			{
-				TRACE("キーコンフィグ終了");
+				try
+				{
+					FILE *file;
+					fopen_s(&file,"data/key.dat","wb");
+					t = _keyCon[0];
+					fwrite(&_keyCon,_keyCon[0],_keyCon.size(),file);
+					fclose(file);
+					
+				}
+				catch(...)
+				{
+					for (auto key : _keyTbl)
+					{
+						_keyCon.emplace_back(key);
+					}
+				}
+				TRACE("キーコンフィグ終了\n");
 				func = &KeyState::RefKeyData;
 			}
 			break;

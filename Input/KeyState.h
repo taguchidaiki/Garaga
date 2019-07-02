@@ -1,6 +1,7 @@
 #pragma once
 #include "InputState.h"
 
+
 class KeyState :
 	public InputState
 {
@@ -13,6 +14,7 @@ public:
 private:
 	char _buf[256];
 	std::vector<int> _keyCon;
+	std::vector<int> _keyConDef;
 	INPUT_ID _confID;
 	int _lastKeyID;
 	int _keyTbl[8] = 
@@ -26,6 +28,7 @@ private:
 		KEY_INPUT_A,
 		KEY_INPUT_S
 	};
+	size_t t;
 
 	//キーのチェック用関数
 	void RefKeyData(void);
