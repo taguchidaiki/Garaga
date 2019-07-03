@@ -2,27 +2,42 @@
 
 KeyState::KeyState()
 {
-	try
-	{
-		FILE *file;
-		//_keyCon.reserve(static_cast<size_t>(end(INPUT_ID())));
-		_keyCon.resize(static_cast<size_t>(end(INPUT_ID())));
-		fopen_s(&file,"data/key.dat","rb");
-		fread(&_keyCon[0], sizeof(size_t), _keyCon.size(), file);
-		fclose(file);
-	}
-	catch(...)
-	{
-		for (auto key : _keyTbl)
-		{
-			_keyCon.emplace_back(key);
-		}
-	}
-	/*_keyCon.reserve(static_cast<size_t>(end(INPUT_ID())));
+	//try
+	//{
+	//	FILE *file;
+	//	_keyCon.resize(static_cast<size_t>(end(INPUT_ID())));
+	//	fopen_s(&file,"data/key.dat","rb");
+	//	fread(&_keyCon[0], sizeof(_keyCon[0]), _keyCon.size(), file);
+	//	fclose(file);
+	//}
+	//catch(...)
+	//{
+	//	for (auto key : _keyTbl)
+	//	{
+	//		_keyCon.emplace_back(key);
+	//	}
+	//}
+	_keyConDef.reserve(static_cast<size_t>(end(INPUT_ID())));
 	for (auto key : _keyTbl)
 	{
-		_keyCon.emplace_back(key);
-	}*/
+		_keyConDef.emplace_back(key);
+	}
+
+	FILE* file;
+	fopen_s(&file, "data/key.dat", "rb");
+	if (file == nullptr)
+	{
+		_keyCon = _keyConDef;
+	}
+	else
+	{
+		_keyCon.resize(static_cast<size_t>(end(INPUT_ID())));
+		//読み込み処理
+		fread(_keyCon.data(), _keyCon.size() * sizeof(_keyCon[0]), 1, file);
+		fclose(file);
+	}
+	
+
 	func = &KeyState::RefKeyData;
 	
 }
@@ -77,12 +92,12 @@ void KeyState::SetKeyConfig(void)
 			TRACE("設定キー%d\n", _confID);
 			if (_confID == end(INPUT_ID()))
 			{
-				try
+				/*try
 				{
 					FILE *file;
 					fopen_s(&file,"data/key.dat","wb");
 					t = _keyCon[0];
-					fwrite(&_keyCon[0],sizeof(size_t),_keyCon.size(),file);
+					fwrite(&_keyCon[0],sizeof(_keyCon[0]),_keyCon.size(),file);
 					fclose(file);
 					
 				}
@@ -92,7 +107,24 @@ void KeyState::SetKeyConfig(void)
 					{
 						_keyCon.emplace_back(key);
 					}
+				}*/
+				FILE* file;
+				fopen_s(&file, "data/key.dat", "wb");
+				if (file == nullptr)
+				{
+					TRACE("保存に失敗しました\n");
 				}
+				else
+				{
+					fwrite(_keyCon.data()/*配列の先頭へのポインタ*/,
+						   _keyCon.size() * sizeof(_keyCon[0])/*データの総要素数*/, 
+						   1, 
+						   file);
+					//こちらも上と同じ意味を持つ
+					//fwrite(_keyCon.data, sizeof(_keyCon[0]), _keyCon.size(), file);
+					fclose(file);
+				}
+
 				TRACE("キーコンフィグ終了\n");
 				func = &KeyState::RefKeyData;
 			}

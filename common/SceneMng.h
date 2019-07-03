@@ -4,8 +4,14 @@
 
 #define lpSceneMng SceneMng::GetInstance()
 
-constexpr int SCREEN_SIZE_X = 800;
-constexpr int SCREEN_SIZE_Y = 600;
+using DrawQueT = std::tuple<int, int, int>;		//<グラフィックハンドル、x座標、y座標>
+
+enum class DRAW_QUE
+{
+	IMAGE,
+	X,
+	Y
+};
 
 class SceneMng
 {
@@ -18,7 +24,11 @@ public:
 
 	void Run(void);
 
-	int SysInit(void);
+	bool AddDrawQue(DrawQueT dQue);
+
+	const Vector2 screenSize;
+	const Vector2 gameScreenSize;
+	const Vector2 gameScreenPos;
 
 private:
 	//専用のデストラクタ
@@ -32,6 +42,12 @@ private:
 
 	SceneMng();
 	~SceneMng();
+
+	bool SysInit(void);
+	void Draw(void);
+
+	//描画用のリスト
+	std::vector<DrawQueT> _drawList;
 
 	static std::unique_ptr<SceneMng, SceneMngDeleter> s_Instance;
 	//継承のオーバーロードをしつつ、ユニークポインタでゲームシーンの生成

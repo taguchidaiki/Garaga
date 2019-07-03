@@ -16,30 +16,65 @@ void SceneMng::Run(void)
 	//activeScene(new GameScene);
 	while ((ProcessMessage() == 0) && (CheckHitKey(KEY_INPUT_ESCAPE)) == 0)
 	{
+		_drawList.clear();
 		//activeSceneの所有権を引数のコピー側に渡して、その返り値をmain側のユニークポインタに渡してあげる
 		_activeScene = _activeScene->Update(std::move(_activeScene));
+		AddDrawQue({IMAGE_ID("枠")[0], 0, 0 });
+		Draw();
 	}
 }
 
-int SceneMng::SysInit(void)
+bool SceneMng::AddDrawQue(DrawQueT dQue)
 {
-	SetGraphMode(SCREEN_SIZE_X, SCREEN_SIZE_Y, 16);
+	if (std::get<static_cast<int>(DRAW_QUE::IMAGE)>(dQue) == -1)
+	{
+		return false;
+	}
+
+	_drawList.emplace_back(dQue);
+	return true;
+}
+
+bool SceneMng::SysInit(void)
+{
+	SetGraphMode(screenSize.x, screenSize.y, 16);
 	ChangeWindowMode(true);
 	SetWindowText("1701320_田口大貴");
+
 	if (DxLib_Init() == -1)
 	{
-		return -1;
+		return false;
 	}
 
 	SetDrawScreen(DX_SCREEN_BACK);
-	return 0;
+
+	SET_IMAGE_ID("枠", "image/frame.png");
+
+	return true;
 }
 
-SceneMng::SceneMng()
+SceneMng::SceneMng() :screenSize{800,600}, gameScreenSize{500,390}, gameScreenPos{(screenSize.x - gameScreenSize.x)/ 2, (screenSize.y - gameScreenSize.y) / 2 }
 {
 }
 
 
 SceneMng::~SceneMng()
 {
+}
+
+void SceneMng::Draw(void)
+{
+	SetDrawScreen(DX_SCREEN_BACK);
+	ClsDrawScreen();
+
+	for (auto _dQue : _drawList)
+	{
+
+		DrawGraph(std::get<static_cast<int>(DRAW_QUE::X)>(_dQue),
+				  std::get<static_cast<int>(DRAW_QUE::Y)>(_dQue),
+				  std::get<static_cast<int>(DRAW_QUE::IMAGE)>(_dQue),
+				  true);
+	}
+
+	ScreenFlip();
 }

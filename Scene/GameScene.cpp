@@ -1,20 +1,13 @@
 #include "GameScene.h"
 #include "GameClear.h"
+#include <common/SceneMng.h>
 #include <unit/Player.h>
 #include <unit/Enemy.h>
 
 
 GameScene::GameScene()
 {
-	TRACE("%d\n",GetScnID());
-	TRACE("GameScene\n");
-
-	ImageMng::GetInstance().GetID("kyara", "image/char.png", { 30,32 }, { 10,10 });
-	ImageMng::GetInstance().GetID("background", "image/frame.png");
-	
-	_objList.emplace_back(new Player({ 300,200 }, "kyara", "image/char.png", { 30,32 }, { 10,10 }, OBJ_PLAYER));
-	_objList.emplace_back(new Enemy({ 500,200 }, "kyara", "image/char.png", { 30,32 }, { 10,10 }, OBJ_ENEMY_START));
-	
+	Init();
 }
 
 
@@ -24,7 +17,7 @@ GameScene::~GameScene()
 
 unique_Base GameScene::Update(unique_Base own)
 {
-	ClsDrawScreen();
+	
 
 	if (CheckHitKey(KEY_INPUT_F5))
 	{
@@ -35,7 +28,21 @@ unique_Base GameScene::Update(unique_Base own)
 	{
 		obj->Update();
 	}
+	
+	Draw();
 
+	//ローカルにあるunique_Baseの所有権を渡してあげる
+	return std::move(own);
+}
+
+void GameScene::Draw(void)
+{
+	int ghBuffer;
+	ghBuffer = GetDrawScreen();
+
+	SetDrawScreen(_ghGameScreen);
+
+	ClsDrawScreen();
 	//shared_ptrでのfor文の書き方
 	for (auto obj : _objList)
 	{
@@ -52,16 +59,28 @@ unique_Base GameScene::Update(unique_Base own)
 	{
 		obj->Draw();
 	}*/
+	lpSceneMng.AddDrawQue({ _ghGameScreen,lpSceneMng.gameScreenPos.x,lpSceneMng.gameScreenPos.y });
 
-	DrawGraph(0, 0, IMAGE_ID("background")[0], true);
+	SetDrawScreen(ghBuffer);
 
-	ScreenFlip();
-
-	//ローカルにあるunique_Baseの所有権を渡してあげる
-	return std::move(own);
 }
 
 SCN_ID GameScene::GetScnID(void)
 {
 	return SCN_ID::GAME;
+}
+
+bool GameScene::Init(void)
+{
+	
+	TRACE("%d\n", GetScnID());
+	TRACE("GameScene\n");
+
+	_ghGameScreen = MakeScreen(lpSceneMng.gameScreenSize.x, lpSceneMng.gameScreenSize.y, true);
+	ImageMng::GetInstance().GetID("kyara", "image/char.png", { 30,32 }, { 10,10 });
+
+	_objList.emplace_back(new Player({ 300,200 }, "kyara", "image/char.png", { 30,32 }, { 10,10 }, OBJ_PLAYER));
+	_objList.emplace_back(new Enemy({ 500,200 }, "kyara", "image/char.png", { 30,32 }, { 10,10 }, OBJ_ENEMY_START));
+
+	return true;
 }
