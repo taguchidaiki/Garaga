@@ -79,8 +79,8 @@ bool GameScene::Init(void)
 	_ghGameScreen = MakeScreen(lpSceneMng.gameScreenSize.x, lpSceneMng.gameScreenSize.y, true);
 	ImageMng::GetInstance().GetID("kyara", "image/char.png", { 30,32 }, { 10,10 });
 
-	_objList.emplace_back(new Player({ 300,200 }, "kyara", "image/char.png", { 30,32 }, { 10,10 }, OBJ_PLAYER));
-	_objList.emplace_back(new Enemy({ 500,200 }, "kyara", "image/char.png", { 30,32 }, { 10,10 }, OBJ_ENEMY_START));
+	_objList.emplace_back(new Player({ 0,200 }, "kyara", "image/char.png", { 30,32 }, { 10,10 }, OBJ_PLAYER));
+	_objList.emplace_back(new Enemy({ 60,200 }, "kyara", "image/char.png", { 30,32 }, { 10,10 }, OBJ_ENEMY_START));
 
 	return true;
 }
