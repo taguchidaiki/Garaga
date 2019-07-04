@@ -4,6 +4,8 @@
 #include <memory>
 #include <common/ImageMng.h>
 #include <common/VECTOR2.h>
+#include <_DebugConOut.h>
+#include <_DebugGraph.h>
 
 enum OBJ_ID
 {

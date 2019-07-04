@@ -4,6 +4,7 @@
 #include <unit/Enemy.h>
 #include <common/ImageMng.h>
 #include <Scene/GameScene.h>
+#include <_DebugGraph.h>
 
 
 std::unique_ptr<SceneMng, SceneMng::SceneMngDeleter> SceneMng::s_Instance(new SceneMng);
@@ -16,6 +17,7 @@ void SceneMng::Run(void)
 	//activeScene(new GameScene);
 	while ((ProcessMessage() == 0) && (CheckHitKey(KEY_INPUT_ESCAPE)) == 0)
 	{
+		_dbgStartGraph;
 		_drawList.clear();
 		//activeSceneの所有権を引数のコピー側に渡して、その返り値をmain側のユニークポインタに渡してあげる
 		_activeScene = _activeScene->Update(std::move(_activeScene));
@@ -49,6 +51,7 @@ bool SceneMng::SysInit(void)
 	SetDrawScreen(DX_SCREEN_BACK);
 
 	SET_IMAGE_ID("枠", "image/frame.png");
+	_dbgSetUpGraph(200);
 
 	return true;
 }
@@ -64,6 +67,7 @@ SceneMng::~SceneMng()
 
 void SceneMng::Draw(void)
 {
+	_dbgAddScreen;
 	SetDrawScreen(DX_SCREEN_BACK);
 	ClsDrawScreen();
 

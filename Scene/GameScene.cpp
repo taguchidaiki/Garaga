@@ -8,6 +8,7 @@
 GameScene::GameScene()
 {
 	Init();
+	
 }
 
 
@@ -17,8 +18,6 @@ GameScene::~GameScene()
 
 unique_Base GameScene::Update(unique_Base own)
 {
-	
-
 	if (CheckHitKey(KEY_INPUT_F5))
 	{
 		return std::make_unique<GameClear>();
@@ -59,7 +58,7 @@ void GameScene::Draw(void)
 	{
 		obj->Draw();
 	}*/
-	lpSceneMng.AddDrawQue({ _ghGameScreen,lpSceneMng.gameScreenPos.x,lpSceneMng.gameScreenPos.y });
+	lpSceneMng.AddDrawQue({ _ghGameScreen,lpSceneMng.gameScreenPos.x,lpSceneMng.gameScreenPos.y});
 
 	SetDrawScreen(ghBuffer);
 
@@ -77,6 +76,7 @@ bool GameScene::Init(void)
 	TRACE("GameScene\n");
 
 	_ghGameScreen = MakeScreen(lpSceneMng.gameScreenSize.x, lpSceneMng.gameScreenSize.y, true);
+
 	ImageMng::GetInstance().GetID("kyara", "image/char.png", { 30,32 }, { 10,10 });
 
 	_objList.emplace_back(new Player({ 0,200 }, "kyara", "image/char.png", { 30,32 }, { 10,10 }, OBJ_PLAYER));

@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{29A0BF85-FAF9-4EEB-B78F-93FCA21D4DA0}</ProjectGuid>
     <RootNamespace>Garaga</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -78,11 +78,11 @@
     <LibraryPath>$(DX_DIR);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(DX_DIR);$(SolutionDir);$(IncludePath)</IncludePath>
+    <IncludePath>$(DX_DIR);$(SolutionDir);$(SolutionDir)\debug;$(IncludePath)</IncludePath>
     <LibraryPath>$(DX_DIR);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(DX_DIR);$(SolutionDir);$(IncludePath)</IncludePath>
+    <IncludePath>$(DX_DIR);$(SolutionDir);$(SolutionDir)\debug;$(IncludePath)</IncludePath>
     <LibraryPath>$(DX_DIR);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -159,8 +159,8 @@
     <ClCompile Include="unit\Obj.cpp" />
     <ClCompile Include="unit\Player.cpp" />
     <ClCompile Include="common\VECTOR2.cpp" />
-    <ClCompile Include="_DebugConOut.cpp" />
-    <ClCompile Include="_DebugGraph.cpp" />
+    <ClCompile Include="debug\_DebugConOut.cpp" />
+    <ClCompile Include="debug\_DebugGraph.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common\SceneMng.h" />
@@ -176,8 +176,8 @@
     <ClInclude Include="unit\Obj.h" />
     <ClInclude Include="unit\Player.h" />
     <ClInclude Include="common\VECTOR2.h" />
-    <ClInclude Include="_DebugConOut.h" />
-    <ClInclude Include="_DebugGraph.h" />
+    <ClInclude Include="debug\_DebugConOut.h" />
+    <ClInclude Include="debug\_DebugGraph.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

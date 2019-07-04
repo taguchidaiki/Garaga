@@ -1,6 +1,4 @@
 #include "Player.h"
-#include "_DebugConOut.h"
-
 
 
 Player::Player()
