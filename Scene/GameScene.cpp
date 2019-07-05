@@ -42,6 +42,8 @@ void GameScene::Draw(void)
 	SetDrawScreen(_ghGameScreen);
 
 	ClsDrawScreen();
+
+	_dbgDrawString(0, 0, "ƒQ[ƒ€ƒV[ƒ“", 0xffffff,false);
 	//shared_ptr‚Å‚Ìfor•¶‚Ì‘‚«•û
 	for (auto obj : _objList)
 	{

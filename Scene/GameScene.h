@@ -15,10 +15,8 @@ public:
 	SCN_ID GetScnID(void)override;
 
 private:
-
 	bool Init(void);
 
 	std::list<shared_Obj> _objList;
-	int _ghGameScreen;
 };
 

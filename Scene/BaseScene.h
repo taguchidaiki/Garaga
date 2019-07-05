@@ -23,5 +23,8 @@ public:
 	virtual  unique_Base Update(unique_Base own) = 0;
 	virtual SCN_ID GetScnID(void) = 0;
 
+protected:
+	int _ghGameScreen;
+
 };
 

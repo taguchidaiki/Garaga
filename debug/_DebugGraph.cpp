@@ -4,6 +4,27 @@
 
 std::unique_ptr<_DebugGraph, _DebugGraph::_DebugGraphDeleter>_DebugGraph::s_Instance(new _DebugGraph);
 
+int _DebugGraph::DrawString(int x, int y, const char * String, unsigned int Color, bool InFlag)
+{
+	int ghBuffer;
+	ghBuffer = GetDrawScreen();
+	SetDrawScreen(_dbScreen);
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, _alpha);
+	int rtnFlg;
+	if (InFlag)
+	{
+		rtnFlg = DxLib::DrawString(x + lpSceneMng.gameScreenPos.x, y + lpSceneMng.gameScreenPos.y, String, Color);
+	}
+	else
+	{
+		rtnFlg = DxLib::DrawString(x, y, String, Color);
+	}
+	
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+	SetDrawScreen(ghBuffer);
+	return rtnFlg;
+}
+
 int _DebugGraph::DrawPixel(int x, int y, unsigned int Color)
 {
 	int ghBuffer;
@@ -12,12 +33,22 @@ int _DebugGraph::DrawPixel(int x, int y, unsigned int Color)
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, _alpha);
 	int rtnFlg = DxLib::DrawPixel(x + lpSceneMng.gameScreenPos.x, y + lpSceneMng.gameScreenPos.y, Color);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+	SetDrawScreen(ghBuffer);
 	return rtnFlg;
 }
 
 int _DebugGraph::DrawLine(int x1, int y1, int x2, int y2, unsigned int Color)
 {
-	return 0;
+	int ghBuffer;
+	ghBuffer = GetDrawScreen();
+	SetDrawScreen(_dbScreen);
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, _alpha);
+	int rtnFlg = DxLib::DrawLine(x1 + lpSceneMng.gameScreenPos.x, y1 + lpSceneMng.gameScreenPos.y,
+								  x2 + lpSceneMng.gameScreenPos.x, y2 + lpSceneMng.gameScreenPos.y,
+								 Color);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+	SetDrawScreen(ghBuffer);
+	return rtnFlg;
 }
 
 int _DebugGraph::DrawBox(int x1, int y1, int x2, int y2, unsigned int Color, int FillFlag)
@@ -31,12 +62,20 @@ int _DebugGraph::DrawBox(int x1, int y1, int x2, int y2, unsigned int Color, int
 								 Color,
 								 FillFlag);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+	SetDrawScreen(ghBuffer);
 	return rtnFlg;
 }
 
 int _DebugGraph::DrawCircle(int x, int y, int r, unsigned int Color, int FillFlag)
 {
-	return 0;
+	int ghBuffer;
+	ghBuffer = GetDrawScreen();
+	SetDrawScreen(_dbScreen);
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, _alpha);
+	int rtnFlg = DxLib::DrawCircle(x + lpSceneMng.gameScreenPos.x, y + lpSceneMng.gameScreenPos.y, r, Color, FillFlag);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+	SetDrawScreen(ghBuffer);
+	return rtnFlg;
 }
 
 bool _DebugGraph::StartDbgGraph(void)
@@ -94,5 +133,16 @@ _DebugGraph::_DebugGraph()
 
 _DebugGraph::~_DebugGraph()
 {
+}
+bool _DebugGraph::SetScreen(void)
+{
+	_ghBuffer = GetDrawScreen();
+	SetDrawScreen(_dbScreen);
+	return true;
+}
+bool _DebugGraph::RevScreen(void)
+{
+	SetDrawScreen(_ghBuffer);
+	return true;
 }
 #endif

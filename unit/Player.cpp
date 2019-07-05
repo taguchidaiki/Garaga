@@ -43,6 +43,7 @@ void Player::Update(void)
 	{
 		_pos.y += 2;
 	}
+
 }
 
 UNIT_ID Player::GetUnitType(void)
