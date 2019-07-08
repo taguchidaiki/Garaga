@@ -134,12 +134,14 @@ _DebugGraph::_DebugGraph()
 _DebugGraph::~_DebugGraph()
 {
 }
+
 bool _DebugGraph::SetScreen(void)
 {
 	_ghBuffer = GetDrawScreen();
 	SetDrawScreen(_dbScreen);
 	return true;
 }
+
 bool _DebugGraph::RevScreen(void)
 {
 	SetDrawScreen(_ghBuffer);

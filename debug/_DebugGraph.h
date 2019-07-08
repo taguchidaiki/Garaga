@@ -2,12 +2,12 @@
 #ifdef _DEBUG
 #include <memory>
 #include <common/VECTOR2.h>
-
+#include <chrono>		//ê∏ìxÇÕ1msíˆìx
 //Drawä÷êîåQ
 #define _dbgDrawString(fmt, ...) _DebugGraph::GetInstance().DrawString(fmt, __VA_ARGS__);
 #define _dbgDrawFormatString(fmt,...) _DebugGraph::GetInstance().SetScreen();\
-										DxLib::DrawFormatString(fmt,...);\
-										_DebugGraph::GetInstance().SetScreen();
+										DxLib::DrawFormatString(fmt,__VA_ARGS__);\
+										_DebugGraph::GetInstance().RevScreen();
 
 #define _dbgDrawPixel(fmt, ...) _DebugGraph::GetInstance().DrawPixel(fmt, __VA_ARGS__);
 #define _dbgDrawLine(fmt, ...) _DebugGraph::GetInstance().DrawLine(fmt, __VA_ARGS__);
@@ -21,6 +21,7 @@
 #define _dbgSetUpGraph(A)	_DebugGraph::GetInstance().SetUpGraph(A);
 #define _dbgSetAlpha(A)		_DebugGraph::GetInstance().SetAlpha(A);
 
+using ChronoSysClock std::chrono::system_clock::time_point;
 class _DebugGraph
 {
 public:
@@ -40,6 +41,9 @@ public:
 	bool SetUpGraph(int alpha);
 	bool SetAlpha(int alpha);
 
+	bool SetScreen(void);
+	bool RevScreen(void);
+
 
 private:
 	struct _DebugGraphDeleter
@@ -53,8 +57,6 @@ private:
 	_DebugGraph();
 	~_DebugGraph();
 
-	bool SetScreen(void);
-	bool RevScreen(void);
 
 	int _alpha;
 	int _dbScreen;

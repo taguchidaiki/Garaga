@@ -15,6 +15,7 @@ void Obj::Draw(void)
 	DrawGraph(_pos.x, _pos.y, _animMap[_animKey][_animFlame].first, true);
 	
 	_dbgDrawBox(_pos.x, _pos.y, _pos.x + _divSize.x, _pos.y + _divSize.y, 0x00ff00, true);
+	_dbgDrawFormatString(_pos.x, _pos.y - 10,0xff0000, "%d,%d", _pos.x, _pos.y);
 
 	if (_animCnt >= _animMap[_animKey][_animFlame].second)
 	{
