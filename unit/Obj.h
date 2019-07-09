@@ -52,6 +52,7 @@ public:
 	bool pos(const Vector2 pos);
 	const ANIM animKey(void) const;
 	bool animKey(const ANIM _animKey);
+	bool isAlive(void);
 
 
 protected:
@@ -61,6 +62,7 @@ protected:
 	std::string _imageName;
 	Vector2 _divSize;
 	Vector2 _divCnt;
+	bool _alive;
 	int _id;
 
 private:

@@ -25,6 +25,7 @@ void Enemy::Draw(void)
 
 void Enemy::Update(void)
 {
+	//チェックヒットキーで対応したエネミーの_aliveをfalseに変更する
 }
 
 UNIT_ID Enemy::GetUnitType(void)

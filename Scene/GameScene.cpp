@@ -26,6 +26,10 @@ unique_Base GameScene::Update(unique_Base own)
 	for (auto obj : _objList)
 	{
 		obj->Update();
+		if (!obj->isAlive())
+		{
+			_objList.erase(obj);
+		}
 	}
 	
 	Draw();
@@ -81,8 +85,10 @@ bool GameScene::Init(void)
 
 	ImageMng::GetInstance().GetID("kyara", "image/char.png", { 30,32 }, { 10,10 });
 
-	_objList.emplace_back(new Player({ 0,200 }, "kyara", "image/char.png", { 30,32 }, { 10,10 }, OBJ_PLAYER));
-	_objList.emplace_back(new Enemy({ 60,200 }, "kyara", "image/char.png", { 30,32 }, { 10,10 }, OBJ_ENEMY_START));
-
+	for (int i = 0; i < 10; ++i)
+	{
+		_objList.emplace_back(new Enemy({ (float)(30 * i) ,200 }, "kyara", "image/char.png", { 30,32 }, { 10,10 }, OBJ_ENEMY_START));
+	}
+	
 	return true;
 }

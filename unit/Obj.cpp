@@ -36,6 +36,7 @@ void Obj::Init(std::string imageName, std::string fileName, Vector2 divSize, Vec
 	_divSize = divSize;
 	_divCnt = divCnt;
 	_id = id;
+	_alive = true;
 }
 
 void Obj::Draw(int id)
@@ -68,6 +69,11 @@ bool Obj::animKey(const ANIM _animKey)
 
 	this->_animKey = _animKey;
 	return true;
+}
+
+bool Obj::isAlive(void)
+{
+	return _alive;
 }
 
 bool Obj::SetAnim(const ANIM key, AnimVector& data)

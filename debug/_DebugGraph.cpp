@@ -104,6 +104,7 @@ bool _DebugGraph::AddDbgScreen(void)
 	{
 		lpSceneMng.AddDrawQue({ _dbScreen, 0, 0 });
 	}
+	WaitMode();
 	return true;
 }
 
@@ -146,5 +147,36 @@ bool _DebugGraph::RevScreen(void)
 {
 	SetDrawScreen(_ghBuffer);
 	return true;
+}
+bool _DebugGraph::WaitMode(void)
+{
+	if (CheckHitKey(KEY_INPUT_ADD))
+	{
+
+	}
+
+	if (CheckHitKey(KEY_INPUT_ADD))
+	{
+
+	}
+
+	if (CheckHitKey(KEY_INPUT_DIVIDE))
+	{
+		_waitTime = 0;
+	}
+
+	if (_waitTime)
+	{
+		_start = std::chrono::system_clock::now();
+		do
+		{
+			_end = std::chrono::system_clock::now();
+			if (ProcessMessage() != 0 || CheckHitKey(KEY_INPUT_ESCAPE))
+			{
+				break;
+			}
+		} while (std::chrono::duration_cast<std::chrono::milliseconds>(_end - _start).count() < _waitTime);
+	}
+	return false;
 }
 #endif

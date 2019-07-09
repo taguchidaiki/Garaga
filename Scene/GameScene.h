@@ -1,6 +1,6 @@
 #pragma once
 #include "BaseScene.h"
-#include <list>
+#include <vector>
 #include <unit/Obj.h>
 
 class GameScene :
@@ -17,6 +17,6 @@ public:
 private:
 	bool Init(void);
 
-	std::list<shared_Obj> _objList;
+	std::vector<shared_Obj> _objList;
 };
 
