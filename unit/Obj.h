@@ -24,6 +24,7 @@ enum class ANIM
 {
 	NORMAL,		//’Êí
 	EX,			//“Áê
+	BLAST,		//€–S
 	MAX
 };
 
@@ -33,6 +34,8 @@ using unique_Obj = std::unique_ptr<Obj>;
 using shared_Obj = std::shared_ptr<Obj>;
 //first = ‰æ‘œ‚ÌID, second = ƒtƒŒ[ƒ€”;
 using AnimVector = std::vector<std::pair<int, int>>;
+
+constexpr float PI = 3.1415926535897932384626433832795f;
 
 class Obj
 {
@@ -52,17 +55,22 @@ public:
 	bool pos(const Vector2 pos);
 	const ANIM animKey(void) const;
 	bool animKey(const ANIM _animKey);
+	bool resetCnt(void);
 	bool isAlive(void);
+	bool isDeath(void);
+	bool isAnimEnd(void);
 
 
 protected:
 	bool SetAnim(const ANIM key, AnimVector &data);
+	bool DestroyProc(void);
 
 	Vector2 _pos;
 	std::string _imageName;
 	Vector2 _divSize;
 	Vector2 _divCnt;
 	bool _alive;
+	bool _death;
 	int _id;
 
 private:

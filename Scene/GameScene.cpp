@@ -1,4 +1,5 @@
 #include "GameScene.h"
+#include <algorithm>
 #include "GameClear.h"
 #include <common/SceneMng.h>
 #include <unit/Player.h>
@@ -26,11 +27,12 @@ unique_Base GameScene::Update(unique_Base own)
 	for (auto obj : _objList)
 	{
 		obj->Update();
-		if (!obj->isAlive())
-		{
-			_objList.erase(obj);
-		}
 	}
+
+	_objList.erase(std::remove_if(_objList.begin(), 
+								  _objList.end(), 
+								  [](shared_Obj& obj) {return (*obj).isDeath();}),
+				   _objList.end());
 	
 	Draw();
 
@@ -84,11 +86,23 @@ bool GameScene::Init(void)
 	_ghGameScreen = MakeScreen(lpSceneMng.gameScreenSize.x, lpSceneMng.gameScreenSize.y, true);
 
 	ImageMng::GetInstance().GetID("kyara", "image/char.png", { 30,32 }, { 10,10 });
+	ImageMng::GetInstance().GetID("enblast", "image/en_blast.png", { 64,64 }, { 5,1 });
+	ImageMng::GetInstance().GetID("plblast", "image/pl_blast.png", { 64, 64}, { 4, 1});
 
-	for (int i = 0; i < 10; ++i)
+	for (int i = 0; i < 9; ++i)
 	{
-		_objList.emplace_back(new Enemy({ (float)(30 * i) ,200 }, "kyara", "image/char.png", { 30,32 }, { 10,10 }, OBJ_ENEMY_START));
+		_objList.emplace_back(new Enemy({(float)(200 + 30 * (i % 3)) ,(float)(50 + ((i / 3) * 32))}, 
+										 "kyara", "image/char.png", 
+										 { 30,32 }, 
+										 { 10,10 }, 
+										 OBJ_ENEMY_START));
 	}
+
+	_objList.emplace_back(new Enemy({(float) (200 + 30 * 1), (float)(50 + 32 * 3)},
+		"kyara", "image/char.png",
+		{ 30,32 },
+		{ 10,10 },
+		OBJ_ENEMY_START));
 	
 	return true;
 }
