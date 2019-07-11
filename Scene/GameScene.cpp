@@ -24,6 +24,17 @@ unique_Base GameScene::Update(unique_Base own)
 		return std::make_unique<GameClear>();
 	}
 
+	if (CheckHitKey(KEY_INPUT_NUMPADENTER))
+	{
+		AddEne({ {0,0},
+			{0,0},
+			5,
+			"image/char.png",
+			{ 30,32 },
+			{ 10,10 },
+			OBJ_ENEMY_START });
+	}
+
 	for (auto obj : _objList)
 	{
 		obj->Update();
@@ -89,20 +100,28 @@ bool GameScene::Init(void)
 	ImageMng::GetInstance().GetID("enblast", "image/en_blast.png", { 64,64 }, { 5,1 });
 	ImageMng::GetInstance().GetID("plblast", "image/pl_blast.png", { 64, 64}, { 4, 1});
 
-	for (int i = 0; i < 9; ++i)
+	/*for (int i = 0; i < 9; ++i)
 	{
 		_objList.emplace_back(new Enemy({(float)(200 + 30 * (i % 3)) ,(float)(50 + ((i / 3) * 32))}, 
 										 "kyara", "image/char.png", 
 										 { 30,32 }, 
 										 { 10,10 }, 
 										 OBJ_ENEMY_START));
-	}
+	}*/
 
-	_objList.emplace_back(new Enemy({(float) (200 + 30 * 1), (float)(50 + 32 * 3)},
-		"kyara", "image/char.png",
-		{ 30,32 },
-		{ 10,10 },
-		OBJ_ENEMY_START));
+	/*_objList.emplace_back(new Enemy({(float) (200 + 30 * 1), (float)(50 + 32 * 3)},
+									  5,
+									 "kyara", 
+									 "image/char.png",
+									 { 30,32 },
+									 { 10,10 },
+									 OBJ_ENEMY_START));*/
 	
 	return true;
+}
+
+bool GameScene::AddEne(STATUS status)
+{
+	_objList.emplace_back(new Enemy(status));
+	return false;
 }

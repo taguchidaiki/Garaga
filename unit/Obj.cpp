@@ -12,17 +12,21 @@ Obj::~Obj()
 
 void Obj::Draw(void)
 {
-	DrawRotaGraph(_pos.x + _divSize.x / 2, _pos.y + _divSize.y / 2,
+	DrawRotaGraph(_status.pos.x + _status.divSize.x / 2, _status.pos.y + _status.divSize.y / 2,
 				  1.0, PI / 2 * 180,
 				  _animMap[_animKey][_animFlame].first, true);
 	//DrawGraph(_pos.x, _pos.y, _animMap[_animKey][_animFlame].first, true);
 	
-	_dbgDrawBox(_pos.x, _pos.y, _pos.x + _divSize.x, _pos.y + _divSize.y, 0x00ff00, true);
+	_dbgDrawBox(_status.pos.x, _status.pos.y, _status.pos.x + _status.divSize.x, _status.pos.y + _status.divSize.y, 0x00ff00, true);
 	//_dbgDrawFormatString(_pos.x, _pos.y - 10,0xff0000, "%d,%d", _pos.x, _pos.y);
 
 	if (_animCnt >= _animMap[_animKey][_animFlame].second)
 	{
-		_animFlame++;
+		if (_animMap[_animKey][_animFlame].first != -1)
+		{
+			_animFlame++;
+		}
+		
 		if (_animFlame >= _animMap[_animKey].size())
 		{
 			_animCnt = 0;
@@ -35,30 +39,30 @@ void Obj::Draw(void)
 void Obj::Init(std::string imageName, std::string fileName, Vector2 divSize, Vector2 divCnt, int id)
 {
 	ImageMng::GetInstance().GetID(imageName, fileName, divSize, divCnt);
-	_imageName = imageName;
-	_divSize = divSize;
-	_divCnt = divCnt;
-	_id = id;
+	_status.imageName = imageName;
+	_status.divSize = divSize;
+	_status.divCnt = divCnt;
+	_status.id = id;
 	_alive = true;
 	_death = false;
 }
 
 void Obj::Draw(int id)
 {
-	DrawRotaGraph(_pos.x + _divSize.x / 2, _pos.y + _divSize.y / 2,
+	DrawRotaGraph(_status.pos.x + _status.divSize.x / 2, _status.pos.y + _status.divSize.y / 2,
 		1.0, PI / 2 * 180,
-		IMAGE_ID(_imageName)[id], true);
+		IMAGE_ID(_status.imageName)[id], true);
 	//DrawGraph(_pos.x, _pos.y, IMAGE_ID(_imageName)[id], true);
 }
 
 const Vector2 Obj::pos(void) const
 {
-	return _pos;
+	return _status.pos;
 }
 
 bool Obj::pos(const Vector2 pos)
 {
-	_pos = pos;
+	_status.pos = pos;
 	return true;
 }
 
@@ -73,6 +77,8 @@ bool Obj::animKey(const ANIM _animKey)
 	{
 		return false;
 	}
+
+	resetCnt();
 
 	this->_animKey = _animKey;
 	return true;
@@ -96,6 +102,8 @@ bool Obj::isDeath(void)
 
 bool Obj::isAnimEnd(void)
 {
+	//findチェックとsizeのチェックを忘れずに
+
 	if (_animMap[_animKey][_animFlame].first == -1)
 	{
 		return true;
@@ -121,9 +129,9 @@ bool Obj::DestroyProc(void)
 		return false;
 	}
 
-	if (!_death)
+	if (isAnimEnd())
 	{
-		return false;
+		_death = true;
 	}
 
 	return true;

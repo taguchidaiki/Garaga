@@ -1,4 +1,5 @@
 #include "VECTOR2.h"
+#include <math.h>
 
 
 
@@ -104,6 +105,17 @@ Vector2 Vector2::operator-() const
 	return Vector2(-x, -y);
 }
 
+bool Vector2::Normalized(void)
+{
+	
+	return true;
+}
+
+float Vector2::magnitude(void)
+{
+	return sqrt(x * x + y * y);
+}
+
 //VECTOR2‚Æfloat‚Ì’P€‰‰Zq
 Vector2 operator+(const Vector2 & vec, const float i)
 {
@@ -155,4 +167,10 @@ float Dot(const Vector2 & vec, const Vector2 & vec2)
 float Cross(const Vector2 & vec, const Vector2 & vec2)
 {
 	return (vec.x * vec2.y - vec.y * vec2.x);
+}
+
+Vector2 Normalize(Vector2  vec)
+{
+	float mag = vec.magnitude();
+	return Vector2(vec.x / mag, vec.y / mag);
 }

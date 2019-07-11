@@ -16,6 +16,7 @@ public:
 
 private:
 	bool Init(void);
+	bool AddEne(STATUS status);
 
 	std::vector<shared_Obj> _objList;
 };

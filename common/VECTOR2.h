@@ -28,6 +28,12 @@ public:
 	Vector2 operator+()const;
 	Vector2 operator-()const;
 
+	//正規化
+	bool Normalized(void);
+
+	//ベクトルの大きさ取得
+	float magnitude(void);
+
 	//座標情報
 	float x;
 	float y;
@@ -51,3 +57,5 @@ float Dot(const Vector2& vec, const Vector2& vec2);
 
 //VECTOR2の外積を返す
 float Cross(const Vector2& vec, const Vector2& vec2);
+
+Vector2 Normalize(Vector2 vec);

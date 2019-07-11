@@ -28,6 +28,17 @@ enum class ANIM
 	MAX
 };
 
+struct STATUS
+{
+	Vector2 pos;
+	Vector2 mov;
+	float speed;
+	std::string imageName;
+	Vector2 divSize;
+	Vector2 divCnt;
+	int id;
+};
+
 class Obj;
 
 using unique_Obj = std::unique_ptr<Obj>;
@@ -65,13 +76,9 @@ protected:
 	bool SetAnim(const ANIM key, AnimVector &data);
 	bool DestroyProc(void);
 
-	Vector2 _pos;
-	std::string _imageName;
-	Vector2 _divSize;
-	Vector2 _divCnt;
+	STATUS _status;
 	bool _alive;
 	bool _death;
-	int _id;
 
 private:
 	std::map<ANIM,AnimVector> _animMap;
