@@ -12,10 +12,9 @@ enum class ENE_VAL
 {
 	BUG,
 	BUTF,
-	BOSS,
+	CAP,
 	MAX
 };
-
 
 
 class Enemy :
@@ -24,7 +23,7 @@ class Enemy :
 public:
 	Enemy();
 	Enemy(Vector2 pos, float speed, std::string imageName, std::string fileName, Vector2 divSize, Vector2 divCnt, int id);
-	Enemy(STATUS status);
+	Enemy(STATUS state, Vector2 ePos);
 	~Enemy();
 
 	//ƒˆ‰¼‘zŠÖ”’u‚«ê

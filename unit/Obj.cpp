@@ -12,12 +12,12 @@ Obj::~Obj()
 
 void Obj::Draw(void)
 {
-	DrawRotaGraph(_status.pos.x + _status.divSize.x / 2, _status.pos.y + _status.divSize.y / 2,
+	DrawRotaGraph(_state.pos.x + _state.divSize.x / 2, _state.pos.y + _state.divSize.y / 2,
 				  1.0, PI / 2 * 180,
 				  _animMap[_animKey][_animFlame].first, true);
 	//DrawGraph(_pos.x, _pos.y, _animMap[_animKey][_animFlame].first, true);
 	
-	_dbgDrawBox(_status.pos.x, _status.pos.y, _status.pos.x + _status.divSize.x, _status.pos.y + _status.divSize.y, 0x00ff00, true);
+	_dbgDrawBox(_state.pos.x, _state.pos.y, _state.pos.x + _state.divSize.x, _state.pos.y + _state.divSize.y, 0x00ff00, true);
 	//_dbgDrawFormatString(_pos.x, _pos.y - 10,0xff0000, "%d,%d", _pos.x, _pos.y);
 
 	if (_animCnt >= _animMap[_animKey][_animFlame].second)
@@ -39,30 +39,38 @@ void Obj::Draw(void)
 void Obj::Init(std::string imageName, std::string fileName, Vector2 divSize, Vector2 divCnt, int id)
 {
 	ImageMng::GetInstance().GetID(imageName, fileName, divSize, divCnt);
-	_status.imageName = imageName;
-	_status.divSize = divSize;
-	_status.divCnt = divCnt;
-	_status.id = id;
+	/*_state.imageName = imageName;
+	_state.divSize = divSize;
+	_state.divCnt = divCnt;
+	_state.id = id;*/
+	_alive = true;
+	_death = false;
+}
+
+void Obj::Init(STATUS state)
+{
+	ImageMng::GetInstance().GetID(state.imageName, state.fileName, state.divSize, state.divCnt);
+	_state = state;
 	_alive = true;
 	_death = false;
 }
 
 void Obj::Draw(int id)
 {
-	DrawRotaGraph(_status.pos.x + _status.divSize.x / 2, _status.pos.y + _status.divSize.y / 2,
+	DrawRotaGraph(_state.pos.x + _state.divSize.x / 2, _state.pos.y + _state.divSize.y / 2,
 		1.0, PI / 2 * 180,
-		IMAGE_ID(_status.imageName)[id], true);
+		IMAGE_ID(_state.imageName)[id], true);
 	//DrawGraph(_pos.x, _pos.y, IMAGE_ID(_imageName)[id], true);
 }
 
 const Vector2 Obj::pos(void) const
 {
-	return _status.pos;
+	return _state.pos;
 }
 
 bool Obj::pos(const Vector2 pos)
 {
-	_status.pos = pos;
+	_state.pos = pos;
 	return true;
 }
 

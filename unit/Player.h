@@ -8,6 +8,7 @@ class Player :
 public:
 	Player();
 	Player(Vector2  pos, float speed, std::string imageName, std::string fileName, Vector2 divSize, Vector2 divCnt, int id);
+	Player(STATUS state);
 	~Player();
 
 	//ƒˆ‰¼‘zŠÖ”’u‚«ê

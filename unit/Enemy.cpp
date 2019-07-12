@@ -9,17 +9,17 @@ Enemy::Enemy()
 Enemy::Enemy(Vector2 pos, float speed, std::string imageName, std::string fileName, Vector2 divSize, Vector2 divCnt, int id)
 {
 	TRACE("エネミー生成\n");
-	_status.pos = pos;
-	_status.speed = speed;
-	_goal = { 0,0 };
+	_state.pos = pos;
+	_state.speed = speed;
 	Obj::Init(imageName, fileName, divSize, divCnt, id);
 	Init();
 }
 
-Enemy::Enemy(STATUS status)
+Enemy::Enemy(STATUS state, Vector2 ePos)
 {
-	_status = status;
-	
+	TRACE("エネミー生成\n");
+	_goal = ePos;
+	Obj::Init(state);
 	Init();
 }
 
@@ -31,9 +31,9 @@ Enemy::~Enemy()
 
 void Enemy::Draw(void)
 {
-	DrawRotaGraph(_status.pos.x + _status.divSize.x / 2, _status.pos.y + _status.divSize.y / 2,
+	DrawRotaGraph(_state.pos.x + _state.divSize.x / 2, _state.pos.y + _state.divSize.y / 2,
 		1.0, PI / 2,
-		IMAGE_ID(_status.imageName)[_status.id], true);
+		IMAGE_ID(_state.imageName)[_state.id], true);
 }
 
 void Enemy::Update(void)
@@ -68,9 +68,14 @@ int Enemy::Move(void)
 	//直線移動の実装
 	//ゴール地点から現在地点までの方向を正規化してあげて
 	//posにスピード*方向を加算すればその方向に向かう
-	_status.mov = Normalize(Vector2(_goal - _status.pos));
+	_state.mov = Normalize(Vector2(_goal - _state.pos));
 
-	_status.pos += _status.pos * _status.speed;
+	_state.pos += _state.mov * _state.speed;
+
+	if (_state.pos.x == _goal.x)
+	{
+		_actMode = ENE_ACT::IDLE;
+	}
 
 	return 0;
 }
@@ -81,8 +86,8 @@ bool Enemy::Init(void)
 	data.reserve(2);
 	//data.push_back(std::make_pair(IMAGE_ID("キャラ")[0], 30));
 	//data.emplace_back(std::make_pair(IMAGE_ID("キャラ")[0], 30));
-	data.emplace_back(IMAGE_ID("kyara")[_status.id], 30);
-	data.emplace_back(IMAGE_ID("kyara")[_status.id + 1], 60);
+	data.emplace_back(IMAGE_ID("kyara")[_state.id], 30);
+	data.emplace_back(IMAGE_ID("kyara")[_state.id + 1], 60);
 	SetAnim(ANIM::NORMAL, data);
 	//data.clear();
 	

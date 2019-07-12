@@ -7,7 +7,7 @@
 #include <_DebugConOut.h>
 #include <_DebugGraph.h>
 
-enum OBJ_ID
+enum class OBJ_ID
 {
 	OBJ_PLAYER,
 	OBJ_ENEMY_START = 10,
@@ -28,12 +28,14 @@ enum class ANIM
 	MAX
 };
 
+
 struct STATUS
 {
 	Vector2 pos;
 	Vector2 mov;
 	float speed;
 	std::string imageName;
+	std::string fileName;
 	Vector2 divSize;
 	Vector2 divCnt;
 	int id;
@@ -61,6 +63,7 @@ public:
 
 	//ä÷êîíuÇ´èÍ
 	void Init(std::string imageName, std::string fileName, Vector2 divSize, Vector2 divCnt,int id);
+	void Init(STATUS state);
 	void Draw(int id);
 	const Vector2 pos(void)const;
 	bool pos(const Vector2 pos);
@@ -76,7 +79,7 @@ protected:
 	bool SetAnim(const ANIM key, AnimVector &data);
 	bool DestroyProc(void);
 
-	STATUS _status;
+	STATUS _state;
 	bool _alive;
 	bool _death;
 

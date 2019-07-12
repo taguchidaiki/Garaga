@@ -16,8 +16,18 @@ public:
 
 private:
 	bool Init(void);
-	bool AddEne(STATUS status);
+	bool AddEne(STATUS status, Vector2 ePos);
+	Vector2 _addPList[6] = {
+	{0,0},
+	{470,0},
+	{0,195},
+	{470,195},
+	{0,358},
+	{470,358}
+	};
+	Vector2 _endPList[21];
 
 	std::vector<shared_Obj> _objList;
+	int count = 0;
 };
 

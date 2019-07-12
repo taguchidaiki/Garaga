@@ -8,11 +8,18 @@ Player::Player()
 
 Player::Player(Vector2 pos, float speed, std::string imageName, std::string fileName, Vector2 divSize, Vector2 divCnt, int id)
 {
-	_status.pos = pos;
-	_status.speed = speed;
+	_state.pos = pos;
+	_state.speed = speed;
 	Obj::Init(imageName, fileName, divSize, divCnt, id);
 	Init();
 	TRACE("プレイヤーー生成\n");
+}
+
+Player::Player(STATUS state)
+{
+	TRACE("プレイヤーー生成\n");
+	Obj::Init(state);
+	Init();
 }
 
 
@@ -23,7 +30,7 @@ Player::~Player()
 
 void Player::Draw(void)
 {
-	DrawGraph(_status.pos.x, _status.pos.y, IMAGE_ID(_status.imageName)[_status.id], true);
+	DrawGraph(_state.pos.x, _state.pos.y, IMAGE_ID(_state.imageName)[_state.id], true);
 }
 
 void Player::Update(void)
@@ -37,19 +44,19 @@ void Player::Update(void)
 
 	if ((*_input).state(INPUT_ID::LEFT).second)
 	{
-		_status.pos.x -= 2;
+		_state.pos.x -= 2;
 	}
 	if ((*_input).state(INPUT_ID::RIGHT).second)
 	{
-		_status.pos.x += 2;
+		_state.pos.x += 2;
 	}
 	if ((*_input).state(INPUT_ID::UP).second)
 	{
-		_status.pos.y -= 2;
+		_state.pos.y -= 2;
 	}
 	if ((*_input).state(INPUT_ID::DOWN).second)
 	{
-		_status.pos.y += 2;
+		_state.pos.y += 2;
 	}
 
 	if (rand() % 120 == 0)
