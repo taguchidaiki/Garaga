@@ -35,10 +35,11 @@ unique_Base GameScene::Update(unique_Base own)
 				 "image/char.png",
 				 { 30,32 },
 				 { 10,10 },
-				 static_cast<int>(OBJ_ID::OBJ_ENEMY_START) },
+				(rand() % 8 + 5) * 2/*static_cast<int>(OBJ_ID::OBJ_ENEMY_START)*/ },
 				 _endCirList[count % 21]);
 		count++;
 	}
+	
 
 	for (auto obj : _objList)
 	{

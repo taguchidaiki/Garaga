@@ -10,7 +10,7 @@ enum class ENE_ACT
 
 enum class ENE_VAL
 {
-	BUG,
+	BUG = 1,
 	BUTF,
 	CAP,
 	MAX
