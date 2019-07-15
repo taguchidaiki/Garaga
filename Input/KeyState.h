@@ -17,7 +17,7 @@ private:
 	std::vector<int> _keyConDef;
 	INPUT_ID _confID;
 	int _lastKeyID;
-	int _keyTbl[8] = 
+	int _keyTbl[9] = 
 	{
 		KEY_INPUT_LEFT,
 		KEY_INPUT_RIGHT,
@@ -26,7 +26,8 @@ private:
 		KEY_INPUT_Z,
 		KEY_INPUT_X,
 		KEY_INPUT_A,
-		KEY_INPUT_S
+		KEY_INPUT_S,
+		KEY_INPUT_NUMPADENTER,
 	};
 	size_t t;
 

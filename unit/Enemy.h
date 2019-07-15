@@ -23,7 +23,7 @@ class Enemy :
 public:
 	Enemy();
 	Enemy(Vector2 pos, float speed, std::string imageName, std::string fileName, Vector2 divSize, Vector2 divCnt, int id);
-	Enemy(STATUS state, Vector2 ePos);
+	Enemy(STATUS state, std::pair<Vector2, float> eArea);
 	~Enemy();
 
 	//ƒˆ‰¼‘zŠÖ”’u‚«ê
@@ -42,6 +42,6 @@ private:
 	
 	int (Enemy::*_actTbl[static_cast<int>(ENE_ACT::MAX)])(void);
 	ENE_ACT _actMode;
-	Vector2 _goal;
+	std::pair<Vector2, float> _goalArea;
 };
 

@@ -19,14 +19,16 @@ GameScene::~GameScene()
 
 unique_Base GameScene::Update(unique_Base own)
 {
+	(*_input).Update();
+
 	if (CheckHitKey(KEY_INPUT_F5))
 	{
 		return std::make_unique<GameClear>();
 	}
 
-	if (CheckHitKey(KEY_INPUT_NUMPADENTER))
+	if ((*_input).state(INPUT_ID::ENTER).first && !(*_input).state(INPUT_ID::ENTER).second && count < 21)
 	{
-		AddEne({ _addPList[count % 6] ,
+		AddEne({ _addPList[rand() % 6] ,
 				 {0,0},
 				 2,
 				 "kyara",
@@ -34,7 +36,7 @@ unique_Base GameScene::Update(unique_Base own)
 				 { 30,32 },
 				 { 10,10 },
 				 static_cast<int>(OBJ_ID::OBJ_ENEMY_START) },
-				 _endPList[count % 21]);
+				 _endCirList[count % 21]);
 		count++;
 	}
 
@@ -105,8 +107,21 @@ bool GameScene::Init(void)
 
 	for (int i = 0; i < 21; ++i)
 	{
-		_endPList[i] = { (float)(30 * (i % 7)) + 100 ,(float)(32 * (i / 7)) + 50 };
+		_endCirList[i] = { {(float)(40 * (i % 7)) + 100 ,(float)(35 * (i / 7)) + 50},
+							1.0f};
 	}
+
+	_objList.emplace_back(new Player({ { 300,300 },
+		{ 0,0 },
+		5,
+		"char",
+		"image/char.png",
+		{ 30,32 },
+		{10, 10},
+		static_cast<int>(OBJ_ID::OBJ_ENEMY_START) }
+	));
+
+	_input = std::make_unique<KeyState>();
 	/*for (int i = 0; i < 9; ++i)
 	{
 		_objList.emplace_back(new Enemy({(float)(200 + 30 * (i % 3)) ,(float)(50 + ((i / 3) * 32))}, 
@@ -127,8 +142,8 @@ bool GameScene::Init(void)
 	return true;
 }
 
-bool GameScene::AddEne(STATUS status, Vector2 ePos)
+bool GameScene::AddEne(STATUS status, std::pair<Vector2, float> eArea)
 {
-	_objList.emplace_back(new Enemy(status, ePos));
+	_objList.emplace_back(new Enemy(status, eArea));
 	return false;
 }

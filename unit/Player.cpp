@@ -59,12 +59,12 @@ void Player::Update(void)
 		_state.pos.y += 2;
 	}
 
-	if (rand() % 120 == 0)
+	/*if (rand() % 120 == 0)
 	{
 		_alive = false;
 		animKey(ANIM::BLAST);
 		resetCnt();
-	}
+	}*/
 }
 
 UNIT_ID Player::GetUnitType(void)

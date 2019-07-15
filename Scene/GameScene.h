@@ -2,6 +2,7 @@
 #include "BaseScene.h"
 #include <vector>
 #include <unit/Obj.h>
+#include <Input/KeyState.h>
 
 class GameScene :
 	public BaseScene
@@ -16,15 +17,19 @@ public:
 
 private:
 	bool Init(void);
-	bool AddEne(STATUS status, Vector2 ePos);
+	bool AddEne(STATUS status, std::pair<Vector2, float> eArea);
+	std::unique_ptr<InputState> _input;
+
 	Vector2 _addPList[6] = {
-	{0,0},
-	{470,0},
-	{0,195},
-	{470,195},
-	{0,358},
-	{470,358}
+	{-30,0},
+	{500,0},
+	{-30,195},
+	{500,195},
+	{-30,358},
+	{500,358}
 	};
+
+	std::pair<Vector2, float> _endCirList[21];
 	Vector2 _endPList[21];
 
 	std::vector<shared_Obj> _objList;

@@ -15,10 +15,10 @@ Enemy::Enemy(Vector2 pos, float speed, std::string imageName, std::string fileNa
 	Init();
 }
 
-Enemy::Enemy(STATUS state, Vector2 ePos)
+Enemy::Enemy(STATUS state, std::pair<Vector2, float> eArea)
 {
 	TRACE("エネミー生成\n");
-	_goal = ePos;
+	_goalArea = eArea;
 	Obj::Init(state);
 	Init();
 }
@@ -68,12 +68,13 @@ int Enemy::Move(void)
 	//直線移動の実装
 	//ゴール地点から現在地点までの方向を正規化してあげて
 	//posにスピード*方向を加算すればその方向に向かう
-	_state.mov = Normalize(Vector2(_goal - _state.pos));
+	_state.mov = Normalize(Vector2(_goalArea.first - _state.pos));
 
 	_state.pos += _state.mov * _state.speed;
 
-	if (_state.pos.x == _goal.x)
+	if (sqrt(pow(_state.pos.x - _goalArea.first.x,2) + pow(_state.pos.y - _goalArea.first.y,2)) <= _goalArea.second)
 	{
+		_state.pos = _goalArea.first;
 		_actMode = ENE_ACT::IDLE;
 	}
 
