@@ -33,7 +33,7 @@ public:
 
 
 	//ŠÖ”’u‚«ê
-	
+	bool Sigmoid(void);
 
 private:
 	bool Init(void);
@@ -43,5 +43,6 @@ private:
 	int (Enemy::*_actTbl[static_cast<int>(ENE_ACT::MAX)])(void);
 	ENE_ACT _actMode;
 	std::pair<Vector2, float> _goalArea;
+	int count = 0;
 };
 

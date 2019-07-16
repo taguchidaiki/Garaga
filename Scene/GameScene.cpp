@@ -112,7 +112,7 @@ bool GameScene::Init(void)
 							1.0f};
 	}
 
-	_objList.emplace_back(new Player({ { 300,300 },
+	/*_objList.emplace_back(new Player({ { 300,300 },
 		{ 0,0 },
 		5,
 		"char",
@@ -120,7 +120,7 @@ bool GameScene::Init(void)
 		{ 30,32 },
 		{10, 10},
 		static_cast<int>(OBJ_ID::OBJ_ENEMY_START) }
-	));
+	));*/
 
 	_input = std::make_unique<KeyState>();
 	/*for (int i = 0; i < 9; ++i)

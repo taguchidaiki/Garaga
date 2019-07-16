@@ -30,7 +30,6 @@ private:
 	};
 
 	std::pair<Vector2, float> _endCirList[21];
-	Vector2 _endPList[21];
 
 	std::vector<shared_Obj> _objList;
 	int count = 0;

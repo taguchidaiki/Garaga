@@ -2,6 +2,7 @@
 #include <DxLib.h>
 #include <string>
 #include <memory>
+#include <math.h>
 #include <common/ImageMng.h>
 #include <common/VECTOR2.h>
 #include <_DebugConOut.h>

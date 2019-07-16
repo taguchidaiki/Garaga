@@ -68,7 +68,7 @@ int Enemy::Move(void)
 	//直線移動の実装
 	//ゴール地点から現在地点までの方向を正規化してあげて
 	//posにスピード*方向を加算すればその方向に向かう
-	_state.mov = Normalize(Vector2(_goalArea.first - _state.pos));
+	/*_state.mov = Normalize(Vector2(_goalArea.first - _state.pos));
 
 	_state.pos += _state.mov * _state.speed;
 
@@ -76,9 +76,19 @@ int Enemy::Move(void)
 	{
 		_state.pos = _goalArea.first;
 		_actMode = ENE_ACT::IDLE;
-	}
+	}*/
+
+	Sigmoid();
 
 	return 0;
+}
+
+bool Enemy::Sigmoid(void)
+{
+	count++;
+	_state.pos.x -= 1;
+	_state.pos.y = 1 / (1 + expf(-count * 2/*-_state.pos.x,x座標*/));
+	return true;
 }
 
 bool Enemy::Init(void)
