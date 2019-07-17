@@ -32,8 +32,8 @@ enum class ANIM
 
 struct STATUS
 {
-	Vector2 pos;
-	Vector2 mov;
+	Vector2D pos;
+	Vector2D mov;
 	float speed;
 	std::string imageName;
 	std::string fileName;
@@ -66,8 +66,12 @@ public:
 	void Init(std::string imageName, std::string fileName, Vector2 divSize, Vector2 divCnt,int id);
 	void Init(STATUS state);
 	void Draw(int id);
-	const Vector2 pos(void)const;
-	bool pos(const Vector2 pos);
+
+	template<typename T>
+	const Vector2Temple<T> pos(void)const;
+	template<typename T>
+	bool pos(const Vector2Temple<T> pos);
+
 	const ANIM animKey(void) const;
 	bool animKey(const ANIM _animKey);
 	bool resetCnt(void);

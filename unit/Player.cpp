@@ -6,7 +6,7 @@ Player::Player()
 
 }
 
-Player::Player(Vector2 pos, float speed, std::string imageName, std::string fileName, Vector2 divSize, Vector2 divCnt, int id)
+Player::Player(Vector2D pos, float speed, std::string imageName, std::string fileName, Vector2 divSize, Vector2 divCnt, int id)
 {
 	_state.pos = pos;
 	_state.speed = speed;

@@ -63,12 +63,14 @@ void Obj::Draw(int id)
 	//DrawGraph(_pos.x, _pos.y, IMAGE_ID(_imageName)[id], true);
 }
 
-const Vector2 Obj::pos(void) const
+template<typename T>
+const Vector2Temple<T> Obj::pos(void) const
 {
 	return _state.pos;
 }
 
-bool Obj::pos(const Vector2 pos)
+template<typename T>
+bool Obj::pos(const Vector2Temple<T> pos)
 {
 	_state.pos = pos;
 	return true;

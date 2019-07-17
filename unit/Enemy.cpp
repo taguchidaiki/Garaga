@@ -6,7 +6,7 @@ Enemy::Enemy()
 	
 }
 
-Enemy::Enemy(Vector2 pos, float speed, std::string imageName, std::string fileName, Vector2 divSize, Vector2 divCnt, int id)
+Enemy::Enemy(Vector2D pos, float speed, std::string imageName, std::string fileName, Vector2 divSize, Vector2 divCnt, int id)
 {
 	TRACE("エネミー生成\n");
 	_state.pos = pos;
@@ -15,7 +15,7 @@ Enemy::Enemy(Vector2 pos, float speed, std::string imageName, std::string fileNa
 	Init();
 }
 
-Enemy::Enemy(STATUS state, std::pair<Vector2, float> eArea)
+Enemy::Enemy(STATUS state, std::pair<Vector2D, float> eArea)
 {
 	TRACE("エネミー生成\n");
 	_goalArea = eArea;
@@ -85,9 +85,9 @@ int Enemy::Move(void)
 
 bool Enemy::Sigmoid(void)
 {
-	count++;
 	_state.pos.x -= 1;
-	_state.pos.y = 1 / (1 + expf(-count * 2/*-_state.pos.x,x座標*/));
+	_state.pos.y = 1 / (1 + exp(_state.pos.x)) ;
+	
 	return true;
 }
 

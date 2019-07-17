@@ -1,32 +1,34 @@
 #pragma once
-class Vector2
+
+template<class T>
+class Vector2Temple
 {
 public:
-	Vector2();
-	Vector2(float x, float y);
-	~Vector2();
+	Vector2Temple();
+	Vector2Temple(T x, T y);
+	~Vector2Temple();
 
 	//‘ã“ü‰‰Zq
-	Vector2& operator=(const Vector2& vec);
+	Vector2Temple<T>& operator=(const Vector2Temple<T>& vec);
 
 	//“Y‚¦š‰‰Zq
 	//int& operator[](const int i);
 
 	//”äŠr‰‰Zq
-	bool operator==(const Vector2& vec)const;
-	bool operator!=(const Vector2& vec)const;
-	bool operator>=(const Vector2& vec)const;
-	bool operator<=(const Vector2& vec)const;
-	bool operator>(const Vector2& vec)const;
-	bool operator<(const Vector2& vec)const;
+	bool operator==(const Vector2Temple& vec)const;
+	bool operator!=(const Vector2Temple& vec)const;
+	bool operator>=(const Vector2Temple& vec)const;
+	bool operator<=(const Vector2Temple& vec)const;
+	bool operator>(const Vector2Temple& vec)const;
+	bool operator<(const Vector2Temple& vec)const;
 
 	//’P€‰‰Zq
-	Vector2& operator+=(const Vector2& vec);
-	Vector2& operator-=(const Vector2& vec);
-	Vector2& operator*=(const float k);
-	Vector2& operator/=(const float k);
-	Vector2 operator+()const;
-	Vector2 operator-()const;
+	Vector2Temple& operator+=(const Vector2Temple& vec);
+	Vector2Temple& operator-=(const Vector2Temple& vec);
+	Vector2Temple<T>& operator*=(const T k);
+	Vector2Temple<T>& operator/=(const T k);
+	Vector2Temple operator+()const;
+	Vector2Temple operator-()const;
 
 	//³‹K‰»
 	bool Normalized(void);
@@ -35,27 +37,44 @@ public:
 	float magnitude(void);
 
 	//À•Wî•ñ
-	float x;
-	float y;
+	T x;
+	T y;
 };
 
-//VECTOR2‚Æfloat‚Ì’P€‰‰Zq
-Vector2 operator+(const Vector2& vec, const float i);
-Vector2 operator-(const Vector2& vec, const float i);
-Vector2 operator*(const Vector2& vec, const float i);
-Vector2 operator*(const float i, const Vector2& vec);
-Vector2 operator/(const Vector2& vec, const float i);
-//Vector2 operator%(const Vector2& vec, const int i);
+//Vector2Temple‚Æfloat‚Ì’P€‰‰Zq
+template<class T>
+Vector2Temple<T> operator+(const Vector2Temple<T>& vec, const T i);
+template<class T>
+Vector2Temple<T> operator-(const Vector2Temple<T>& vec, const T i);
+template<class T>
+Vector2Temple<T> operator*(const Vector2Temple<T>& vec, const T i);
+template<class T>
+Vector2Temple<T> operator*(const T i, const Vector2Temple<T>& vec);
+template<class T>
+Vector2Temple<T> operator/(const Vector2Temple<T>& vec, const T i);
+template<class T>
+Vector2Temple<T> operator%(const Vector2Temple<T>& vec, const T i);
 
 
-//VECTOR2“¯m‚Ì’P€‰‰Zq
-Vector2 operator+(const Vector2& vec, const Vector2& vec2);
-Vector2 operator-(const Vector2& vec, const Vector2& vec2);
+//Vector2Temple“¯m‚Ì’P€‰‰Zq
+template<class T>
+Vector2Temple<T> operator+(const Vector2Temple<T>& vec, const Vector2Temple<T>& vec2);
+template<class T>
+Vector2Temple<T> operator-(const Vector2Temple<T>& vec, const Vector2Temple<T>& vec2);
 
-//VECTOR2‚Ì“àÏ‚ğ•Ô‚·
-float Dot(const Vector2& vec, const Vector2& vec2);
+//Vector2Temple‚Ì“àÏ‚ğ•Ô‚·
+template<class T>
+float Dot(const Vector2Temple<T>& vec, const Vector2Temple<T>& vec2);
 
-//VECTOR2‚ÌŠOÏ‚ğ•Ô‚·
-float Cross(const Vector2& vec, const Vector2& vec2);
+//Vector2Temple‚ÌŠOÏ‚ğ•Ô‚·
+template<class T>
+float Cross(const Vector2Temple<T>& vec, const Vector2Temple<T>& vec2);
 
-Vector2 Normalize(Vector2 vec);
+template<class T>
+Vector2Temple<T> Normalize(Vector2Temple<T> vec);
+
+using Vector2 = Vector2Temple<int>;
+using Vector2F = Vector2Temple<float>;
+using Vector2D = Vector2Temple<double>;
+
+#include "./details/VECTOR2.h"

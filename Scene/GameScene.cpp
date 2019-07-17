@@ -143,7 +143,7 @@ bool GameScene::Init(void)
 	return true;
 }
 
-bool GameScene::AddEne(STATUS status, std::pair<Vector2, float> eArea)
+bool GameScene::AddEne(STATUS status, std::pair<Vector2D, float> eArea)
 {
 	_objList.emplace_back(new Enemy(status, eArea));
 	return false;

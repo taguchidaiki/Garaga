@@ -158,11 +158,11 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="unit\Obj.cpp" />
     <ClCompile Include="unit\Player.cpp" />
-    <ClCompile Include="common\VECTOR2.cpp" />
     <ClCompile Include="debug\_DebugConOut.cpp" />
     <ClCompile Include="debug\_DebugGraph.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="common\details\VECTOR2.h" />
     <ClInclude Include="common\SceneMng.h" />
     <ClInclude Include="Input\InputState.h" />
     <ClInclude Include="Input\KeyState.h" />
