@@ -85,8 +85,10 @@ int Enemy::Move(void)
 
 bool Enemy::Sigmoid(void)
 {
-	_state.pos.x -= 1;
-	_state.pos.y = 1 / (1 + exp(_state.pos.x)) ;
+	/*f(x) = 1(上下の範囲の最大値(引数でもらって来るか、元々の固定値まで)) / (1 + exp(-ax));	シグモイド曲線(a > 0)*/
+	/*f'(x) =  f(x)(1 - f(x));							シグモイド曲線の微分*/	
+	_state.pos.x += 1.0f;
+	_state.pos.y = 390 / (1 + exp(-_state.pos.x * 0.5f));
 	
 	return true;
 }

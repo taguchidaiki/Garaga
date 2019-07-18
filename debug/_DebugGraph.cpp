@@ -84,7 +84,7 @@ bool _DebugGraph::StartDbgGraph(void)
 	ghBuffer = GetDrawScreen();
 
 	SetDrawScreen(_dbScreen);
-	ClsDrawScreen();
+	//ClsDrawScreen();
 	SetDrawScreen(ghBuffer);
 
 	return true;
