@@ -78,18 +78,20 @@ int Enemy::Move(void)
 		_actMode = ENE_ACT::IDLE;
 	}*/
 
-	Sigmoid();
+	Sigmoid(300);
 
 	return 0;
 }
 
-bool Enemy::Sigmoid(void)
+bool Enemy::Sigmoid(Vector2 start, Vector2 end, float til)		//till(0.0f < til < 1.0f)
 {
 	/*f(x) = 1(上下の範囲の最大値(引数でもらって来るか、元々の固定値まで)) / (1 + exp(-ax));	シグモイド曲線(a > 0)*/
 	/*f'(x) =  f(x)(1 - f(x));							シグモイド曲線の微分*/	
-	_state.pos.x += 1.0f;
-	_state.pos.y = 390 / (1 + exp(-_state.pos.x * 0.5f));
-	
+
+	Vector2 center;
+	center = start + (end - start) / 2;
+	_state.pos.x += _state.speed;
+
 	return true;
 }
 

@@ -33,7 +33,7 @@ public:
 
 
 	//ŠÖ”’u‚«ê
-	bool Sigmoid(void);
+	bool Sigmoid(Vector2 start, Vector2 end, float til);
 
 private:
 	bool Init(void);
