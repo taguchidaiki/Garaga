@@ -55,6 +55,10 @@ Vector2Temple<T> operator/(const Vector2Temple<T>& vec, const T i);
 template<class T>
 Vector2Temple<T> operator%(const Vector2Temple<T>& vec, const T i);
 
+template<class T>
+Vector2Temple<T> operator*(const Vector2Temple<T>& vec, const float i);
+
+
 
 //Vector2Temple“¯m‚Ì’P€‰‰Zq
 template<class T>

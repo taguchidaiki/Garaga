@@ -124,7 +124,9 @@ Vector2Temple<T> Vector2Temple<T>::operator-() const
 template<class T>
 bool Vector2Temple<T>::Normalized(void)
 {
-	
+	float mag = magnitude();
+	x = x / mag;
+	y = y / mag;
 	return true;
 }
 
@@ -169,6 +171,12 @@ template<class T>
 Vector2Temple<T> operator%(const Vector2Temple<T> & vec, const T i)
 {
 	return Vector2Temple<T>(vec.x % i , vec.y % i);
+}
+
+template<class T>
+inline Vector2Temple<T> operator*(const Vector2Temple<T>& vec, const float i)
+{
+	return Vector2Temple<T>(vec.x * i, vec.y * i);
 }
 
 //Vector2Temple“¯m‚Ì’P€‰‰Zq

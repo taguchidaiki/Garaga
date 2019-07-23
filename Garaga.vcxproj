@@ -147,6 +147,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="common\SceneMng.cpp" />
+    <ClCompile Include="unit\EnemyMove.cpp" />
     <ClCompile Include="Input\InputState.cpp" />
     <ClCompile Include="Input\KeyState.cpp" />
     <ClCompile Include="Input\INPUT_ID.cpp" />
@@ -164,6 +165,7 @@
   <ItemGroup>
     <ClInclude Include="common\details\VECTOR2.h" />
     <ClInclude Include="common\SceneMng.h" />
+    <ClInclude Include="unit\EnemyMove.h" />
     <ClInclude Include="Input\InputState.h" />
     <ClInclude Include="Input\KeyState.h" />
     <ClInclude Include="Input\INPUT_ID.h" />

@@ -78,9 +78,20 @@ int Enemy::Move(void)
 		_actMode = ENE_ACT::IDLE;
 	}*/
 
-	Sigmoid(300);
-
+	float _y = Sigmoid(count);
+	
 	return 0;
+}
+
+float Enemy::Sigmoid(float x)
+{
+	count += 1.0f;
+	float _y = 1 / (1 + exp(-(count - 1)));
+	Vector2D til = {count , _y};
+	til.Normalized();
+	_state.pos +=  til * _state.speed;
+	
+	return true;
 }
 
 bool Enemy::Sigmoid(Vector2 start, Vector2 end, float til)		//till(0.0f < til < 1.0f)

@@ -28,7 +28,7 @@ unique_Base GameScene::Update(unique_Base own)
 
 	if ((*_input).state(INPUT_ID::ENTER).first && !(*_input).state(INPUT_ID::ENTER).second && count < 21)
 	{
-		AddEne({ {-30.0f,0}/*_addPList[rand() % 6]*/ ,
+		AddEne({ {-1.0f,0}/*_addPList[rand() % 6]*/ ,
 				 {0,0},
 				 2,
 				 "kyara",
