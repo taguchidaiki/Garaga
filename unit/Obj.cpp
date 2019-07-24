@@ -12,9 +12,9 @@ Obj::~Obj()
 
 void Obj::Draw(void)
 {
-	/*DrawRotaGraph(_state.pos.x + _state.divSize.x / 2, _state.pos.y + _state.divSize.y / 2,
+	DrawRotaGraph(_state.pos.x + _state.divSize.x / 2, _state.pos.y + _state.divSize.y / 2,
 				  1.0, PI / 2 * 180,
-				  _animMap[_animKey][_animFlame].first, true);*/
+				  _animMap[_animKey][_animFlame].first, true);
 	//DrawGraph(_pos.x, _pos.y, _animMap[_animKey][_animFlame].first, true);
 	
 	//_dbgDrawBox(_state.pos.x, _state.pos.y, _state.pos.x + _state.divSize.x, _state.pos.y + _state.divSize.y, 0x00ff00, true);

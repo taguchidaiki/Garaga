@@ -78,31 +78,29 @@ int Enemy::Move(void)
 		_actMode = ENE_ACT::IDLE;
 	}*/
 
-	float _y = Sigmoid(count);
+	Sigmoid({ 0,0 }, { 100,100 }, 0.5f);
 	
 	return 0;
 }
 
 float Enemy::Sigmoid(float x)
-{
-	count += 1.0f;
-	float _y = 1 / (1 + exp(-(count - 1)));
-	Vector2D til = {count , _y};
-	til.Normalized();
-	_state.pos +=  til * _state.speed;
-	
-	return true;
+{	
+	return 1 / (1 + exp(-x));
 }
 
-bool Enemy::Sigmoid(Vector2 start, Vector2 end, float til)		//till(0.0f < til < 1.0f)
+bool Enemy::Sigmoid(Vector2D start, Vector2D end, float til)
 {
 	/*f(x) = 1(上下の範囲の最大値(引数でもらって来るか、元々の固定値まで)) / (1 + exp(-ax));	シグモイド曲線(a > 0)*/
-	/*f'(x) =  f(x)(1 - f(x));							シグモイド曲線の微分*/	
-
-	Vector2 center;
-	center = start + (end - start) / 2;
-	_state.pos.x += _state.speed;
-
+	/*startからendまでのシグモイド曲線を正規化してそこから傾きVector2Dを導くのか？*/
+	/*傾きを定義して正規化された移動量を入れてあげるか｛cosθsinθ｝を入れるかtanθの値を分解するか*/
+	Vector2D _til = { count += 1.0f, Sigmoid(count) };
+	_til.Normalized();
+	/*_state.pos.x += 0.1f;
+	_state.pos.y = Sigmoid(_state.pos.x);*/
+	_state.pos += _til * _state.speed;
+	//y = 1 / (1 + exp(-x));
+	//_state.pos += /*移動の傾きVector2D*/ * _state.speed;
+	
 	return true;
 }
 
