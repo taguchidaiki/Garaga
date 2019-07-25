@@ -33,8 +33,12 @@ public:
 
 
 	//関数置き場
-	float Sigmoid(float);
+	//xとyの範囲を0~1に正規化済みのシグモイド曲線の値を返す
+	float Sigmoid(float x,float a);
 	bool Sigmoid(Vector2D start, Vector2D end, float til);
+
+	bool Cyclone(void);
+	bool Cyclone(Vector2D start, Vector2D end);
 
 private:
 	bool Init(void);
