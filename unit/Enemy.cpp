@@ -115,13 +115,15 @@ bool Enemy::Cyclone(void)
 {
 	//中心{100,100},半径100の右回りの動き方をする
 	//θの値は敵の位置と目的の円の中心地のベクトルを使えば出せるはず
-	Vector2D vec = {_state.pos.x - 100, _state.pos.y - 100};
-	double theta = atan2(vec.x,vec.y);
-	//theta -= (2 * PI / 360);
-	_state.pos.x = 100 * cos(theta);
-	_state.pos.y = 100 * sin(theta);
+	double rad = 100;
+	Vector2D vec = { _state.pos.x, _state.pos.y };
+	double theta = atan2(vec.y,vec.x);
+	double kakudo = tan(theta) * 180 / PI;
+	theta -= (20 * PI / 180);
+	_state.pos.x = rad * cos(theta);
+	_state.pos.y = rad * sin(theta);
 	
-	return false;
+	return true;
 }
 
 bool Enemy::Cyclone(Vector2D start, Vector2D end)
