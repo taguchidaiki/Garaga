@@ -25,10 +25,10 @@ unique_Base GameScene::Update(unique_Base own)
 	{
 		return std::make_unique<GameClear>();
 	}
-
+	
 	if ((*_input).state(INPUT_ID::ENTER).first && !(*_input).state(INPUT_ID::ENTER).second && count < 21)
 	{
-		AddEne({ {100.0f,0.0f}/*_addPList[rand() % 6]*/ ,
+		AddEne({ _addPList[rand() % 6] ,
 				 {0,0},
 				 2,
 				 "kyara",

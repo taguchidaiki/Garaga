@@ -17,7 +17,7 @@ void Obj::Draw(void)
 				  _animMap[_animKey][_animFlame].first, true);
 	//DrawGraph(_pos.x, _pos.y, _animMap[_animKey][_animFlame].first, true);
 	
-	_dbgDrawBox(_state.pos.x, _state.pos.y, _state.pos.x + _state.divSize.x, _state.pos.y + _state.divSize.y, 0x00ff00, true);
+	//_dbgDrawBox(_state.pos.x, _state.pos.y, _state.pos.x + _state.divSize.x, _state.pos.y + _state.divSize.y, 0x00ff00, true);
 	_dbgDrawPixel(_state.pos.x, _state.pos.y, 0xffffff);
 	//_dbgDrawFormatString(_pos.x, _pos.y - 10,0xff0000, "%d,%d", _pos.x, _pos.y);
 

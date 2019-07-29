@@ -1,6 +1,8 @@
 #pragma once
 #include "Obj.h"
 
+class EnemyMove;
+
 enum class ENE_ACT
 {
 	IDLE,
@@ -33,12 +35,7 @@ public:
 
 
 	//関数置き場
-	//xとyの範囲を0~1に正規化済みのシグモイド曲線の値を返す
-	float Sigmoid(float x,float a);
-	bool Sigmoid(Vector2D start, Vector2D end, float til);
-
-	bool Cyclone(void);
-	bool Cyclone(Vector2D start, Vector2D end);
+	
 
 private:
 	bool Init(void);
@@ -49,5 +46,7 @@ private:
 	ENE_ACT _actMode;
 	std::pair<Vector2D, float> _goalArea;
 	float count;
+	double _rad;
+	EnemyMove* moveCtl = nullptr;
 };
 
