@@ -29,12 +29,16 @@ enum class ANIM
 	MAX
 };
 
-
-struct STATUS
+struct TRNS
 {
 	Vector2D pos;
 	Vector2D mov;
 	float speed;
+};
+
+struct STATUS
+{
+	TRNS trns;
 	std::string imageName;
 	std::string fileName;
 	Vector2 divSize;

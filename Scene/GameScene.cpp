@@ -19,6 +19,7 @@ GameScene::~GameScene()
 
 unique_Base GameScene::Update(unique_Base own)
 {
+
 	(*_input).Update();
 
 	if (CheckHitKey(KEY_INPUT_F5))

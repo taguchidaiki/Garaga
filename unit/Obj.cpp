@@ -12,13 +12,13 @@ Obj::~Obj()
 
 void Obj::Draw(void)
 {
-	DrawRotaGraph(_state.pos.x + _state.divSize.x / 2, _state.pos.y + _state.divSize.y / 2,
+	DrawRotaGraph(_state.trns.pos.x + _state.divSize.x / 2, _state.trns.pos.y + _state.divSize.y / 2,
 				  1.0, PI / 2 * 180,
 				  _animMap[_animKey][_animFlame].first, true);
 	//DrawGraph(_pos.x, _pos.y, _animMap[_animKey][_animFlame].first, true);
 	
-	//_dbgDrawBox(_state.pos.x, _state.pos.y, _state.pos.x + _state.divSize.x, _state.pos.y + _state.divSize.y, 0x00ff00, true);
-	_dbgDrawPixel(_state.pos.x, _state.pos.y, 0xffffff);
+	//_dbgDrawBox(_state.trns.pos.x, _state.pos.trns.y, _state.trns.pos.x + _state.divSize.x, _state.trns.pos.y + _state.divSize.y, 0x00ff00, true);
+	_dbgDrawPixel(_state.trns.pos.x, _state.trns.pos.y, 0xffffff);
 	//_dbgDrawFormatString(_pos.x, _pos.y - 10,0xff0000, "%d,%d", _pos.x, _pos.y);
 
 	if (_animCnt >= _animMap[_animKey][_animFlame].second)
@@ -58,7 +58,7 @@ void Obj::Init(STATUS state)
 
 void Obj::Draw(int id)
 {
-	DrawRotaGraph(_state.pos.x + _state.divSize.x / 2, _state.pos.y + _state.divSize.y / 2,
+	DrawRotaGraph(_state.trns.pos.x + _state.divSize.x / 2, _state.trns.pos.y + _state.divSize.y / 2,
 		1.0, PI / 2 * 180,
 		IMAGE_ID(_state.imageName)[id], true);
 	//DrawGraph(_pos.x, _pos.y, IMAGE_ID(_imageName)[id], true);
