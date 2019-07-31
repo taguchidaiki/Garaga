@@ -131,7 +131,7 @@ bool Vector2Temple<T>::Normalized(void)
 }
 
 template<class T>
-float Vector2Temple<T>::magnitude(void)
+double Vector2Temple<T>::magnitude(void)
 {
 	return sqrt(x * x + y * y);
 }
@@ -207,6 +207,6 @@ float Cross(const Vector2Temple<T> & vec, const Vector2Temple<T> & vec2)
 template<class T>
 Vector2Temple<T> Normalize(Vector2Temple<T>  vec)
 {
-	float mag = vec.magnitude();
+	double mag = vec.magnitude();
 	return Vector2Temple<T>(vec.x / mag, vec.y / mag);
 }

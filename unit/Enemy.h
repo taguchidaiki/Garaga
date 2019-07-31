@@ -18,7 +18,7 @@ class Enemy :
 public:
 	Enemy();
 	Enemy(Vector2D pos, float speed, std::string imageName, std::string fileName, Vector2 divSize, Vector2 divCnt, int id);
-	Enemy(STATUS state, std::pair<Vector2D, float> eArea);
+	Enemy(STATUS state);
 	~Enemy();
 
 	//ƒˆ‰¼‘zŠÖ”’u‚«ê
@@ -28,12 +28,12 @@ public:
 
 
 	//ŠÖ”’u‚«ê
-	void SetMove(void);
 
 private:
 	bool Init(void);
 	
 	std::unique_ptr<EnemyMove> _moveCtl;
+
 
 };
 

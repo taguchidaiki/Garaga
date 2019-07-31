@@ -1,4 +1,5 @@
 #include "Obj.h"
+#include <unit/EnemyMove.h>
 
 
 Obj::Obj()
@@ -131,6 +132,12 @@ bool Obj::SetAnim(const ANIM key, AnimVector& data)
 	}
 	return false;*/
 	return _animMap.try_emplace(key, std::move(data)).second;
+}
+
+bool Obj::SetMove(MoveInfo & data)
+{
+	_moveVec.emplace_back(data);
+	return true;
 }
 
 bool Obj::DestroyProc(void)

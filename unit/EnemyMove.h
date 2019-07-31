@@ -2,7 +2,7 @@
 #include <common/VECTOR2.h>
 #include <utility>
 #include <memory>
-#include <unit/Obj.h>
+#include "Obj.h"
 
 enum class MOV_PTN
 {
@@ -15,7 +15,7 @@ enum class MOV_PTN
 class EnemyMove
 {
 public:
-	EnemyMove();
+	EnemyMove(std::vector<MoveInfo> moveMap);
 	~EnemyMove();
 
 	Vector2D Update(const TRNS& trns/*なんの動きをするかの情報も引数に追加する*/);
@@ -30,8 +30,13 @@ private:
 	Vector2D Cyclone(Vector2D start, Vector2D end, double& rad, const TRNS& trns);
 
 	//(スタート位置、ゴール位置とゴール範囲、移動情報)
-	Vector2D Line(Vector2D start, std::pair<Vector2D, float> end, const TRNS& trns);
+	Vector2D Line(Vector2D start, Vector2D end, const TRNS& trns);
 
+	Vector2D Sigmoid(const TRNS& trns);
+	Vector2D Cyclone(const TRNS& trns);
+	Vector2D Line(const TRNS& trns);
+
+	std::vector<MoveInfo> *_moveMap;
 	float count;
 };
 

@@ -34,7 +34,7 @@ public:
 	bool Normalized(void);
 
 	//ベクトルの大きさ取得
-	float magnitude(void);
+	double magnitude(void);
 
 	//座標情報
 	T x;

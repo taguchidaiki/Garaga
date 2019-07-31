@@ -17,7 +17,7 @@ public:
 
 private:
 	bool Init(void);
-	bool AddEne(STATUS status, std::pair<Vector2D, float> eArea);
+	bool AddEne(STATUS status);
 	std::unique_ptr<InputState> _input;
 
 	Vector2D _addPList[6] = {
@@ -29,7 +29,7 @@ private:
 	{500,358}
 	};
 
-	std::pair<Vector2D, float> _endCirList[21];
+	Vector2D _endList[21];
 
 	std::vector<shared_Obj> _objList;
 	int count = 0;

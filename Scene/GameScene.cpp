@@ -36,8 +36,7 @@ unique_Base GameScene::Update(unique_Base own)
 				 "image/char.png",
 				 { 30,32 },
 				 { 10,10 },
-				(rand() % 8 + 5) * 2/*static_cast<int>(OBJ_ID::OBJ_ENEMY_START)*/ },
-				 _endCirList[count % 21]);
+				(rand() % 8 + 5) * 2/*static_cast<int>(OBJ_ID::OBJ_ENEMY_START)*/ });
 		count++;
 	}
 	
@@ -109,8 +108,7 @@ bool GameScene::Init(void)
 
 	for (int i = 0; i < 21; ++i)
 	{
-		_endCirList[i] = { {(float)(40 * (i % 7)) + 100 ,(float)(35 * (i / 7)) + 50},
-							1.0f};
+		_endList[i] = {(float)(40 * (i % 7)) + 100 ,(float)(35 * (i / 7)) + 50};
 	}
 
 	/*_objList.emplace_back(new Player({ { 300,300 },
@@ -144,8 +142,8 @@ bool GameScene::Init(void)
 	return true;
 }
 
-bool GameScene::AddEne(STATUS status, std::pair<Vector2D, float> eArea)
+bool GameScene::AddEne(STATUS status)
 {
-	_objList.emplace_back(new Enemy(status, eArea));
+	_objList.emplace_back(new Enemy(status));
 	return false;
 }

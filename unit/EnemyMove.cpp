@@ -1,7 +1,8 @@
 #include "EnemyMove.h"
 
-EnemyMove::EnemyMove()
+EnemyMove::EnemyMove(std::vector<MoveInfo> moveMap)
 {
+	_moveMap = &moveMap;
 	count = 0.0f;
 }
 
@@ -11,8 +12,8 @@ EnemyMove::~EnemyMove()
 
 Vector2D EnemyMove::Update(const TRNS & trns)
 {
-	Vector2D mov;
-	mov = Sigmoid({ 500,358 }, {0,0},4.5f,trns);
+	Vector2D mov = { 0,0 };
+	
 	return mov;
 }
 
@@ -69,15 +70,93 @@ Vector2D EnemyMove::Cyclone(Vector2D start, Vector2D end, double & rad, const TR
 	return mov;
 }
 
-Vector2D EnemyMove::Line(Vector2D start, std::pair<Vector2D, float> end, const TRNS& trns)
+Vector2D EnemyMove::Line(Vector2D start, Vector2D end, const TRNS& trns)
 {
 	Vector2D mov;
+	Vector2D nextPos;
 
-	mov = Normalize(Vector2D(end.first - start)) * trns.speed;
+	mov = Normalize(Vector2D(end - start)) * trns.speed;
+	nextPos = trns.pos + mov;
 
-	if (sqrt(pow(trns.pos.x - end.first.x, 2) + pow(trns.pos.y - end.first.y, 2)) <= end.second)
+	double L1 = sqrt(pow(end.x - trns.pos.x, 2) + pow(end.y - trns.pos.y, 2));
+	double L2 = sqrt(pow(nextPos.x - trns.pos.x, 2) + pow(nextPos.y - trns.pos.y, 2));
+	double vSize = ((end.x - trns.pos.x) * (nextPos.x - trns.pos.x) + (end.y - trns.pos.y) * (nextPos.y - trns.pos.y));
+	double L3 = (L1 * L2);
+	double L4 = fabs(vSize - L3) -1.0;
+	
+	if (((fabs(vSize - L3)- 1.0) < 0.00001) && (L2 >= L1))
 	{
-		mov = Normalize(Vector2D(end.first - trns.pos));
+		mov = Vector2D(end - trns.pos);
+		//Enemyの行動表のカウントを１進める（次の行動に移る）処理
+	}
+
+	return mov;
+}
+
+Vector2D EnemyMove::Sigmoid(const TRNS & trns)
+{
+	Vector2D mov;
+	Vector2D start = std::get<0>(_moveMap);
+	Vector2D end = std::get<1>(_moveMap);
+	/*f(x) = 1　/ (1 + exp(-ax));	シグモイド曲線(a > 0)*/
+	/*傾きを定義して正規化された移動量を入れてあげるか｛cosθsinθ｝を入れるかtanθの値を分解するか*/
+	Vector2D _til = { 0.1f / 3, (Sigmoid(count + 0.1f / 3, til) - Sigmoid(count, til)) };
+	count += (0.1f / 3);
+	//_til.Normalized();
+	mov.x = _til.x * (end.x - start.x);
+	mov.y = _til.y * (end.y - start.y);
+	/*_state.pos.x += _til.x * (end.x - start.x);
+	_state.pos.y += _til.y * (end.y - start.y);*/
+
+	if (count >= 1.0f)
+	{
+		mov = { 0,0 };
+		//_actMode = ENE_ACT::IDLE;
+	}
+
+	return mov;
+}
+
+Vector2D EnemyMove::Cyclone(const TRNS & trns)
+{
+	Vector2D mov;
+	Vector2D vec = { start.x - end.x, start.y - end.y };
+	double theta = atan2(vec.y, vec.x);
+
+	theta -= (10.0 * PI / 180);
+
+	Vector2D nextPos;
+	nextPos.x = end.x + rad * cos(theta);
+	nextPos.y = end.y + rad * sin(theta);
+
+	mov = nextPos - start;
+
+	if (rad <= 0)
+	{
+		mov = { 0,0 };
+	}
+	rad -= 2.0;
+
+	return mov;
+}
+
+Vector2D EnemyMove::Line(const TRNS & trns)
+{
+	Vector2D mov;
+	Vector2D nextPos;
+
+	mov = Normalize(Vector2D(end - start)) * trns.speed;
+	nextPos = trns.pos + mov;
+
+	double L1 = sqrt(pow(end.x - trns.pos.x, 2) + pow(end.y - trns.pos.y, 2));
+	double L2 = sqrt(pow(nextPos.x - trns.pos.x, 2) + pow(nextPos.y - trns.pos.y, 2));
+	double vSize = ((end.x - trns.pos.x) * (nextPos.x - trns.pos.x) + (end.y - trns.pos.y) * (nextPos.y - trns.pos.y));
+	double L3 = (L1 * L2);
+	double L4 = fabs(vSize - L3) - 1.0;
+
+	if (((fabs(vSize - L3) - 1.0) < 0.00001) && (L2 >= L1))
+	{
+		mov = Vector2D(end - trns.pos);
 		//Enemyの行動表のカウントを１進める（次の行動に移る）処理
 	}
 

@@ -21,6 +21,7 @@ enum class UNIT_ID
 	MAX
 };
 
+
 enum class ANIM
 {
 	NORMAL,		//通常
@@ -47,11 +48,14 @@ struct STATUS
 };
 
 class Obj;
+enum class MOV_PTN;
 
 using unique_Obj = std::unique_ptr<Obj>;
 using shared_Obj = std::shared_ptr<Obj>;
 //first = 画像のID, second = フレーム数;
 using AnimVector = std::vector<std::pair<int, int>>;
+//<スタート位置,　ゴール位置,　sig::グラフの傾き具合 円::半径　それ以外::0.0>
+using MoveInfo = std::tuple<MOV_PTN,Vector2D, Vector2D, double>;
 
 constexpr float PI = 3.1415926535897932384626433832795f;
 
@@ -86,11 +90,13 @@ public:
 
 protected:
 	bool SetAnim(const ANIM key, AnimVector &data);
+	bool SetMove(MoveInfo &data);
 	bool DestroyProc(void);
 
 	STATUS _state;
 	bool _alive;
 	bool _death;
+	std::vector<MoveInfo> _moveVec;
 
 private:
 	std::map<ANIM,AnimVector> _animMap;

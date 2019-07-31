@@ -16,7 +16,7 @@ Enemy::Enemy(Vector2D pos, float speed, std::string imageName, std::string fileN
 	Init();
 }
 
-Enemy::Enemy(STATUS state, std::pair<Vector2D, float> eArea)
+Enemy::Enemy(STATUS state)
 {
 	TRACE("エネミー生成\n");
 	Obj::Init(state);
@@ -59,10 +59,6 @@ UNIT_ID Enemy::GetUnitType(void)
 	return UNIT_ID::ENEMY;
 }
 
-void Enemy::SetMove(void)
-{
-}
-
 bool Enemy::Init(void)
 {
 	AnimVector data;
@@ -72,7 +68,6 @@ bool Enemy::Init(void)
 	data.emplace_back(IMAGE_ID("kyara")[_state.id], 30);
 	data.emplace_back(IMAGE_ID("kyara")[_state.id + 1], 60);
 	SetAnim(ANIM::NORMAL, data);
-	//data.clear();
 	
 	data.reserve(6);
 	for (int i = 0; i < 5; ++i)
@@ -82,7 +77,20 @@ bool Enemy::Init(void)
 	data.emplace_back(-1, 180);
 	SetAnim(ANIM::BLAST, data);
 
-	_moveCtl = std::make_unique<EnemyMove>();
+	MoveInfo mData;
+	mData = MoveInfo(MOV_PTN::SIGMOID,_state.trns.pos, {250,179}, 4.5);
+	SetMove(mData);
+
+	mData = MoveInfo(MOV_PTN::SIGMOID, { 250,179 }, {125, 358}, 4.5);
+	SetMove(mData);
+
+	mData = MoveInfo(MOV_PTN::CYCLONE, { 125,358 }, { 125, 89.5 }, 89.5);
+	SetMove(mData);
+
+	mData = MoveInfo(MOV_PTN::LINE, { 125,89.5 }, { 0,0 }, 0.0);
+	SetMove(mData);
+
+	_moveCtl = std::make_unique<EnemyMove>(_moveVec);
 
 	return true;
 }
