@@ -3,6 +3,9 @@
 
 class EnemyMove;
 
+//<“®‚«‚Ìî•ñ,¡‚Ìs“®”Ô†>
+using MoveOrder = std::pair<MoveInfo, int>;
+
 enum class ENE_VAL
 {
 	BUG = 1,
@@ -17,7 +20,6 @@ class Enemy :
 {
 public:
 	Enemy();
-	Enemy(Vector2D pos, float speed, std::string imageName, std::string fileName, Vector2 divSize, Vector2 divCnt, int id);
 	Enemy(STATUS state);
 	~Enemy();
 
@@ -26,14 +28,15 @@ public:
 	void Update(void)override;
 	UNIT_ID GetUnitType(void) override;
 
-
 	//ŠÖ”’u‚«ê
+
 
 private:
 	bool Init(void);
 	
 	std::unique_ptr<EnemyMove> _moveCtl;
-
+	MoveOrder _mOrder;
+	
 
 };
 

@@ -7,15 +7,6 @@ Enemy::Enemy()
 	
 }
 
-Enemy::Enemy(Vector2D pos, float speed, std::string imageName, std::string fileName, Vector2 divSize, Vector2 divCnt, int id)
-{
-	TRACE("エネミー生成\n");
-	_state.trns.pos = pos;
-	_state.trns.speed = speed;
-	Obj::Init(imageName, fileName, divSize, divCnt, id);
-	Init();
-}
-
 Enemy::Enemy(STATUS state)
 {
 	TRACE("エネミー生成\n");
@@ -43,7 +34,7 @@ void Enemy::Update(void)
 		return; 
 	}
 
-	_state.trns.mov = (*_moveCtl).Update(_state.trns);
+	_state.trns.mov = (*_moveCtl).Update(_state.trns,_mOrder);
 	_state.trns.pos += _state.trns.mov;
 	
 	/*if (rand() % 1200 == 0)
@@ -52,6 +43,8 @@ void Enemy::Update(void)
 		animKey(ANIM::BLAST);
 	}*/
 	
+	_mOrder.first = _moveVec[_mOrder.second];
+
 }
 
 UNIT_ID Enemy::GetUnitType(void)
@@ -84,13 +77,16 @@ bool Enemy::Init(void)
 	mData = MoveInfo(MOV_PTN::SIGMOID, { 250,179 }, {125, 358}, 4.5);
 	SetMove(mData);
 
-	mData = MoveInfo(MOV_PTN::CYCLONE, { 125,358 }, { 125, 89.5 }, 89.5);
+	mData = MoveInfo(MOV_PTN::CYCLONE, { 125,358 }, { 125, 269.5 }, 0.0);
 	SetMove(mData);
 
 	mData = MoveInfo(MOV_PTN::LINE, { 125,89.5 }, { 0,0 }, 0.0);
 	SetMove(mData);
 
-	_moveCtl = std::make_unique<EnemyMove>(_moveVec);
+	_mOrder.second = 0;
+	_mOrder.first = _moveVec[_mOrder.second];
+
+	_moveCtl = std::make_unique<EnemyMove>();
 
 	return true;
 }

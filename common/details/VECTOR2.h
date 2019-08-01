@@ -210,3 +210,9 @@ Vector2Temple<T> Normalize(Vector2Temple<T>  vec)
 	double mag = vec.magnitude();
 	return Vector2Temple<T>(vec.x / mag, vec.y / mag);
 }
+
+template<class T>
+double Magnitude(Vector2Temple<T> vec)
+{
+	return 0.0;
+}

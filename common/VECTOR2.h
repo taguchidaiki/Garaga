@@ -77,6 +77,9 @@ float Cross(const Vector2Temple<T>& vec, const Vector2Temple<T>& vec2);
 template<class T>
 Vector2Temple<T> Normalize(Vector2Temple<T> vec);
 
+template<class T>
+double Magnitude(Vector2Temple<T> vec);
+
 using Vector2 = Vector2Temple<int>;
 using Vector2F = Vector2Temple<float>;
 using Vector2D = Vector2Temple<double>;
