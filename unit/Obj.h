@@ -54,7 +54,7 @@ using unique_Obj = std::unique_ptr<Obj>;
 using shared_Obj = std::shared_ptr<Obj>;
 //first = 画像のID, second = フレーム数;
 using AnimVector = std::vector<std::pair<int, int>>;
-//<スタート位置,　ゴール位置,　sig::グラフの傾き具合 円::半径　それ以外::0.0>
+//<スタート位置,　ゴール位置,　sig::グラフの傾き具合 円::回転方向(1.0or-1.0)　それ以外::0.0>
 using MoveInfo = std::tuple<MOV_PTN,Vector2D, Vector2D, double>;
 
 constexpr float PI = 3.1415926535897932384626433832795f;
@@ -82,7 +82,6 @@ public:
 
 	const ANIM animKey(void) const;
 	bool animKey(const ANIM _animKey);
-	bool resetCnt(void);
 	bool isAlive(void);
 	bool isDeath(void);
 	bool isAnimEnd(void);
@@ -92,6 +91,7 @@ protected:
 	bool SetAnim(const ANIM key, AnimVector &data);
 	bool SetMove(MoveInfo &data);
 	bool DestroyProc(void);
+	bool resetCnt(void);
 
 	STATUS _state;
 	bool _alive;

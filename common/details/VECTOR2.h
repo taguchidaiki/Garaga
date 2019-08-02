@@ -214,5 +214,5 @@ Vector2Temple<T> Normalize(Vector2Temple<T>  vec)
 template<class T>
 double Magnitude(Vector2Temple<T> vec)
 {
-	return 0.0;
+	return sqrt(vec.x * vec.x + vec.y * vec.y);
 }

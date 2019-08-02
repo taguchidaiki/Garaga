@@ -31,7 +31,7 @@ unique_Base GameScene::Update(unique_Base own)
 	{
 		AddEne({ _addPList[rand() % 6] ,
 				 {0,0},
-				 2,
+				 5,
 				 "kyara",
 				 "image/char.png",
 				 { 30,32 },

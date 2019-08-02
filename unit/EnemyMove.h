@@ -9,6 +9,7 @@ enum class MOV_PTN
 	LINE,
 	SIGMOID,
 	CYCLONE,
+	LATERAL,
 	MAX
 };
 
@@ -35,6 +36,7 @@ private:
 	Vector2D Sigmoid(const TRNS& trns, MoveOrder& order);
 	Vector2D Cyclone(const TRNS& trns, MoveOrder& order);
 	Vector2D Line(const TRNS& trns, MoveOrder& order);
+	Vector2D Lateral(const TRNS& trns, MoveOrder& order);
 
 	Vector2D (EnemyMove::*func[static_cast<int>(MOV_PTN::MAX)])(const TRNS& trns, MoveOrder& order);
 

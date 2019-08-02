@@ -6,6 +6,7 @@ EnemyMove::EnemyMove()
 	func[static_cast<int>(MOV_PTN::LINE)] = &EnemyMove::Line;
 	func[static_cast<int>(MOV_PTN::SIGMOID)] = &EnemyMove::Sigmoid;
 	func[static_cast<int>(MOV_PTN::CYCLONE)] = &EnemyMove::Cyclone;
+	func[static_cast<int>(MOV_PTN::LATERAL)] = &EnemyMove::Lateral;
 }
 
 EnemyMove::~EnemyMove()
@@ -103,11 +104,13 @@ Vector2D EnemyMove::Sigmoid(const TRNS & trns, MoveOrder& order)
 	Vector2D start = std::get <1>(order.first);
 	Vector2D end = std::get<2>(order.first);
 	double til = std::get<3>(order.first);
+	float speed = 10 - trns.speed;
+
 	/*f(x) = 1@/ (1 + exp(-ax));	ƒVƒOƒ‚ƒCƒh‹Èü(a > 0)*/
 	/*ŒX‚«‚ð’è‹`‚µ‚Ä³‹K‰»‚³‚ê‚½ˆÚ“®—Ê‚ð“ü‚ê‚Ä‚ ‚°‚é‚©ocosƒÆsinƒÆp‚ð“ü‚ê‚é‚©tanƒÆ‚Ì’l‚ð•ª‰ð‚·‚é‚©*/
-	Vector2D _til = { 0.1f / 3, (Sigmoid(count + 0.1f / 3, til) - Sigmoid(count, til)) };
-	count += (0.1f / 3);
-	//_til.Normalized();
+	Vector2D _til = { 0.1f / speed, (Sigmoid(count + 0.1f / speed, til) - Sigmoid(count, til)) };
+	count += (0.1f / speed);
+	
 	mov.x = _til.x * (end.x - start.x);
 	mov.y = _til.y * (end.y - start.y);
 	/*_state.pos.x += _til.x * (end.x - start.x);
@@ -115,7 +118,7 @@ Vector2D EnemyMove::Sigmoid(const TRNS & trns, MoveOrder& order)
 
 	if (count >= 1.0f)
 	{
-		mov = { 0,0 };
+		mov = Vector2D(end - trns.pos);
 		count = 0.0f;
 		order.second++;
 	}
@@ -128,25 +131,25 @@ Vector2D EnemyMove::Cyclone(const TRNS & trns, MoveOrder& order)
 	Vector2D mov;
 	Vector2D start = trns.pos;
 	Vector2D end = std::get<2>(order.first);
-	//
-	double rad = Magnitude(start - end);
+	double rad = Magnitude(start - end) - 2.5;
+
+	if (rad <= 0)
+	{
+		mov = Vector2D(end - trns.pos);
+		order.second++;
+		return mov;
+	}
+
 	Vector2D vec = { start.x - end.x, start.y - end.y };
 	double theta = atan2(vec.y, vec.x);
 
-	theta += (10.0 * PI / 180);
+	theta += std::get<3>(order.first) * (10.0 * PI / 180);
 
 	Vector2D nextPos;
 	nextPos.x = end.x + rad * cos(theta);
 	nextPos.y = end.y + rad * sin(theta);
 
 	mov = nextPos - start;
-
-	if (rad <= 0)
-	{
-		mov = { 0,0 };
-		order.second++;
-	}
-	rad -= 2.0;
 
 	return mov;
 }
@@ -174,4 +177,22 @@ Vector2D EnemyMove::Line(const TRNS & trns, MoveOrder& order)
 	}
 
 	return mov;
+}
+
+Vector2D EnemyMove::Lateral(const TRNS & trns, MoveOrder & order)
+{
+	Vector2D dir = {1,0};
+	count++;
+
+	if ((trns.pos.x <= std::get<1>(order.first).x) || (trns.pos.x >= std::get<2>(order.first).x))
+	{
+		dir * -1.0;
+	}
+
+	if (((int)count % 30) != 0)
+	{
+		return { 0,0 };	
+	}
+
+	return (dir * trns.speed);
 }

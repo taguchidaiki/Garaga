@@ -34,17 +34,24 @@ void Enemy::Update(void)
 		return; 
 	}
 
+	if (std::get<0>(_mOrder.first) == MOV_PTN::LINE)
+	{
+		resetCnt();
+	}
+
 	_state.trns.mov = (*_moveCtl).Update(_state.trns,_mOrder);
 	_state.trns.pos += _state.trns.mov;
 	
+	if (_mOrder.second < _moveVec.size())
+	{
+		_mOrder.first = _moveVec[_mOrder.second];
+	}
+
 	/*if (rand() % 1200 == 0)
 	{
 		_alive = false;
 		animKey(ANIM::BLAST);
 	}*/
-	
-	_mOrder.first = _moveVec[_mOrder.second];
-
 }
 
 UNIT_ID Enemy::GetUnitType(void)
@@ -77,10 +84,13 @@ bool Enemy::Init(void)
 	mData = MoveInfo(MOV_PTN::SIGMOID, { 250,179 }, {125, 358}, 4.5);
 	SetMove(mData);
 
-	mData = MoveInfo(MOV_PTN::CYCLONE, { 125,358 }, { 125, 269.5 }, 0.0);
+	mData = MoveInfo(MOV_PTN::CYCLONE, { 125,358 }, { 125, 269.5 }, 1.0);
 	SetMove(mData);
 
-	mData = MoveInfo(MOV_PTN::LINE, { 125,89.5 }, { 0,0 }, 0.0);
+	mData = MoveInfo(MOV_PTN::LINE, { 125,269.5 }, { 0,0 }, 0.0);
+	SetMove(mData);
+
+	mData = MoveInfo(MOV_PTN::LATERAL, { 0.5,0 }, { 1.5,0 }, 0.0);
 	SetMove(mData);
 
 	_mOrder.second = 0;
