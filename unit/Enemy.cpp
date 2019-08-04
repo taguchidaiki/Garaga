@@ -29,6 +29,7 @@ void Enemy::Draw(void)
 
 void Enemy::Update(void)
 {
+	int oldOrder = _mOrder.second;
 	if (DestroyProc())
 	{
 		return; 
@@ -42,7 +43,7 @@ void Enemy::Update(void)
 	_state.trns.mov = (*_moveCtl).Update(_state.trns,_mOrder);
 	_state.trns.pos += _state.trns.mov;
 	
-	if (_mOrder.second < _moveVec.size())
+	if (_mOrder.second < _moveVec.size() && oldOrder != _mOrder.second)
 	{
 		_mOrder.first = _moveVec[_mOrder.second];
 	}

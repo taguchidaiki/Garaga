@@ -184,15 +184,22 @@ Vector2D EnemyMove::Lateral(const TRNS & trns, MoveOrder & order)
 	Vector2D dir = {1,0};
 	count++;
 
-	if ((trns.pos.x <= std::get<1>(order.first).x) || (trns.pos.x >= std::get<2>(order.first).x))
+	if (std::get<3>(order.first) == 0.0)
 	{
-		dir * -1.0;
+		std::get<1>(order.first).x = trns.pos.x + (trns.speed * (((std::get<1>(order.first).x) - 1) * 10));
+		std::get<2>(order.first).x = trns.pos.x + (trns.speed * (((std::get<2>(order.first).x) - 1) * 10));
+		std::get<3>(order.first) = 1.0;
 	}
 
 	if (((int)count % 30) != 0)
 	{
-		return { 0,0 };	
+		return { 0,0 };
 	}
+
+	if (trns.pos.x < std::get<1>(order.first).x || trns.pos.x > std::get<2>(order.first).x)
+	{
+		dir = dir * -1.0;
+	}	
 
 	return (dir * trns.speed);
 }
