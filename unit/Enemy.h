@@ -20,7 +20,7 @@ class Enemy :
 {
 public:
 	Enemy();
-	Enemy(STATUS state);
+	Enemy(STATUS& state);
 	~Enemy();
 
 	//ƒˆ‰¼‘zŠÖ”’u‚«ê

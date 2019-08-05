@@ -29,14 +29,7 @@ unique_Base GameScene::Update(unique_Base own)
 	
 	if ((*_input).state(INPUT_ID::ENTER).first && !(*_input).state(INPUT_ID::ENTER).second && count < 21)
 	{
-		AddEne({ _addPList[rand() % 6] ,
-				 {0,0},
-				 5,
-				 "kyara",
-				 "image/char.png",
-				 { 30,32 },
-				 { 10,10 },
-				(rand() % 8 + 5) * 2/*static_cast<int>(OBJ_ID::OBJ_ENEMY_START)*/ });
+		AddEne();
 		count++;
 	}
 	
@@ -106,10 +99,26 @@ bool GameScene::Init(void)
 	ImageMng::GetInstance().GetID("enblast", "image/en_blast.png", { 64,64 }, { 5,1 });
 	ImageMng::GetInstance().GetID("plblast", "image/pl_blast.png", { 64, 64}, { 4, 1});
 
-	for (int i = 0; i < 21; ++i)
+	FILE *file;
+
+	fopen_s(&file, "data/firstPos.csv", "r");
+	for (int i = 0; i < 6; ++i)
 	{
-		_endList[i] = {(float)(40 * (i % 7)) + 100 ,(float)(35 * (i / 7)) + 50};
+		fscanf_s(file, "%lf,%lf",
+			&_addPList[i].x,
+			&_addPList[i].y);
 	}
+	fclose(file);
+
+	fopen_s(&file, "data/endPos.csv", "r");
+	for (int i = 0; i < 40; ++i)
+	{
+		fscanf_s(file, "%lf,%lf",
+			&_endList[i].x,
+			&_endList[i].y);
+	}
+
+	fclose(file);
 
 	/*_objList.emplace_back(new Player({ { 300,300 },
 		{ 0,0 },
@@ -142,8 +151,27 @@ bool GameScene::Init(void)
 	return true;
 }
 
-bool GameScene::AddEne(STATUS status)
+bool GameScene::AddEne()
 {
-	_objList.emplace_back(new Enemy(status));
+	FILE *file;
+	STATUS _status;
+	fopen_s(&file, "data/enemyState.csv", "r");
+	fscanf_s(file, "%lf,%lf,%lf,%lf,%f,%d,%[^,],%[^,],%d,%d,%d,%d",
+		&_status.trns.pos.x,
+		&_status.trns.pos.y,
+		&_status.trns.mov.x,
+		&_status.trns.mov.y,
+		&_status.trns.speed,
+		&_status.id,
+
+		_status.imageName.c_str(),10,
+		_status.fileName.c_str(), 20,
+		&_status.divSize.x,
+		&_status.divSize.y,
+		&_status.divCnt.x,
+		&_status.divCnt.y);
+
+	fclose(file);
+	_objList.emplace_back(new Enemy(_status));
 	return false;
 }

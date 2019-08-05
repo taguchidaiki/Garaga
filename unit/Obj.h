@@ -40,11 +40,12 @@ struct TRNS
 struct STATUS
 {
 	TRNS trns;
+	int id;
 	std::string imageName;
 	std::string fileName;
 	Vector2 divSize;
 	Vector2 divCnt;
-	int id;
+	
 };
 
 class Obj;
@@ -72,7 +73,7 @@ public:
 
 	//ŠÖ”’u‚«ê
 	void Init(std::string imageName, std::string fileName, Vector2 divSize, Vector2 divCnt,int id);
-	void Init(STATUS state);
+	void Init(STATUS& state);
 	void Draw(int id);
 
 	template<typename T>

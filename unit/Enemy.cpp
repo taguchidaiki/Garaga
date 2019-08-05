@@ -7,7 +7,7 @@ Enemy::Enemy()
 	
 }
 
-Enemy::Enemy(STATUS state)
+Enemy::Enemy(STATUS& state)
 {
 	TRACE("エネミー生成\n");
 	Obj::Init(state);

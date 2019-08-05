@@ -181,8 +181,8 @@ Vector2D EnemyMove::Line(const TRNS & trns, MoveOrder& order)
 
 Vector2D EnemyMove::Lateral(const TRNS & trns, MoveOrder & order)
 {
-	Vector2D dir = {1,0};
-	count++;
+	Vector2D dir = {0,0};
+	/*count++;
 
 	if (std::get<3>(order.first) == 0.0)
 	{
@@ -199,7 +199,7 @@ Vector2D EnemyMove::Lateral(const TRNS & trns, MoveOrder & order)
 	if (trns.pos.x < std::get<1>(order.first).x || trns.pos.x > std::get<2>(order.first).x)
 	{
 		dir = dir * -1.0;
-	}	
+	}*/	
 
 	return (dir * trns.speed);
 }

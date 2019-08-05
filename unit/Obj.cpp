@@ -53,10 +53,17 @@ void Obj::Init(std::string imageName, std::string fileName, Vector2 divSize, Vec
 	_death = false;
 }
 
-void Obj::Init(STATUS state)
+void Obj::Init(STATUS& state)
 {
-	ImageMng::GetInstance().GetID(state.imageName, state.fileName, state.divSize, state.divCnt);
-	_state = state;
+	_state.trns.pos = state.trns.pos;
+	_state.trns.mov = state.trns.mov;
+	_state.trns.speed = state.trns.speed;
+	_state.id = state.id;
+	_state.imageName = state.imageName.c_str();
+	_state.fileName = state.fileName.c_str();
+	_state.divSize = state.divSize;
+	_state.divCnt = state.divCnt;
+	ImageMng::GetInstance().GetID(_state.imageName, _state.fileName, _state.divSize, _state.divCnt);
 	_alive = true;
 	_death = false;
 }

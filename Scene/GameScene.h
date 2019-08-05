@@ -17,19 +17,12 @@ public:
 
 private:
 	bool Init(void);
-	bool AddEne(STATUS status);
+	bool AddEne();
 	std::unique_ptr<InputState> _input;
 
-	Vector2D _addPList[6] = {
-	{-30,0},
-	{500,0},
-	{-30,195},
-	{500,195},
-	{-30,358},
-	{500,358}
-	};
+	Vector2D _addPList[6];
 
-	Vector2D _endList[21];
+	Vector2D _endList[40];
 
 	std::vector<shared_Obj> _objList;
 	int count = 0;
