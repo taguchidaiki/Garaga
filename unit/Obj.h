@@ -8,15 +8,10 @@
 #include <_DebugConOut.h>
 #include <_DebugGraph.h>
 
-enum class OBJ_ID
-{
-	OBJ_PLAYER,
-	OBJ_ENEMY_START = 10,
-};
-
 enum class UNIT_ID
 {
 	PLAYER,
+	SHOT,
 	ENEMY,
 	MAX
 };
@@ -85,10 +80,12 @@ public:
 	bool animKey(const ANIM _animKey);
 	const int animCnt(void)const;
 	bool animCnt(const int _animCnt);
+	const STATUS state(void)const;
 	bool isAlive(void);
 	bool isDeath(void);
 	bool isAnimEnd(void);
-
+	bool callDeath(void);
+	std::vector<shared_Obj>& listBegin();
 
 protected:
 	bool SetAnim(const ANIM key, AnimVector &data);
@@ -101,11 +98,14 @@ protected:
 	bool _death;
 	double _angle;
 	std::vector<MoveInfo> _moveVec;
+	std::vector<shared_Obj> _shotList;
 
-private:
+
 	std::map<ANIM,AnimVector> _animMap;
 	ANIM _animKey;
 	int _animFlame;
 	int _animCnt;
+private:
+	
 };
 

@@ -17,7 +17,10 @@ public:
 
 private:
 	bool Init(void);
+	bool AddPlayer();
 	bool AddEne();
+	
+	bool RectVsRect(STATUS stateA, STATUS stateB, bool flagA, bool flagB);
 	std::unique_ptr<InputState> _input;
 
 	Vector2D _addPList[6];

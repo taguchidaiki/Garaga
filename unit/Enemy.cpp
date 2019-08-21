@@ -23,9 +23,46 @@ Enemy::~Enemy()
 
 void Enemy::Draw(void)
 {
-	DrawRotaGraph(_state.trns.pos.x + _state.divSize.x / 2, _state.trns.pos.y + _state.divSize.y / 2,
+	/*DrawRotaGraph(_state.trns.pos.x + _state.divSize.x / 2, _state.trns.pos.y + _state.divSize.y / 2,
 		1.0, PI / 2,
-		IMAGE_ID(_state.imageName)[_state.id], true);
+		IMAGE_ID(_state.imageName)[_state.id], true);*/
+
+	if (_animMap.size() == 0)
+	{
+		DrawRotaGraph(_state.trns.pos.x + _state.divSize.x / 2, _state.trns.pos.y + _state.divSize.y / 2,
+			1.0, _angle,
+			IMAGE_ID(_state.imageName)[_state.id], true);
+	}
+	else
+	{
+		DrawRotaGraph(_state.trns.pos.x + _state.divSize.x / 2, _state.trns.pos.y + _state.divSize.y / 2,
+			1.0, _angle,
+			_animMap[_animKey][_animFlame].first, true);
+
+		if (_animCnt >= _animMap[_animKey][_animFlame].second)
+		{
+			if (_animMap[_animKey][_animFlame].first != -1)
+			{
+				_animFlame++;
+			}
+
+			if (_animFlame >= _animMap[_animKey].size())
+			{
+				_animCnt = 0;
+				_animFlame = 0;
+			}
+		}
+		_animCnt++;
+	}
+
+	/*DrawRotaGraph(_state.trns.pos.x + _state.divSize.x / 2, _state.trns.pos.y + _state.divSize.y / 2,
+				  1.0, PI / 2 * 180,
+				  _animMap[_animKey][_animFlame].first, true);*/
+				  //DrawGraph(_pos.x, _pos.y, _animMap[_animKey][_animFlame].first, true);
+
+				  //_dbgDrawBox(_state.trns.pos.x, _state.pos.trns.y, _state.trns.pos.x + _state.divSize.x, _state.trns.pos.y + _state.divSize.y, 0x00ff00, true);
+	_dbgDrawPixel(_state.trns.pos.x, _state.trns.pos.y, 0xffffff);
+	//_dbgDrawFormatString(_pos.x, _pos.y - 10,0xff0000, "%d,%d", _pos.x, _pos.y);
 }
 
 void Enemy::Update(void)
@@ -58,11 +95,12 @@ void Enemy::Update(void)
 		_mOrder.first = _moveVec[_mOrder.second];
 	}
 
-	/*if (rand() % 1200 == 0)
-	{
-		_alive = false;
-		animKey(ANIM::BLAST);
-	}*/
+	//if (rand() % 1200 == 0)
+	//{
+
+	//	_alive = false;
+	//	animKey(ANIM::BLAST);
+	//}
 }
 
 UNIT_ID Enemy::GetUnitType(void)
@@ -88,21 +126,44 @@ bool Enemy::Init(Vector2D& endPos)
 	data.emplace_back(-1, 180);
 	SetAnim(ANIM::BLAST, data);
 
-	MoveInfo mData;
-	mData = MoveInfo(MOV_PTN::SIGMOID,_state.trns.pos, {250,179}, 4.5);
-	SetMove(mData);
+	if (_state.trns.pos.x >= 500)
+	{
+		//âEèoåªéûÇÃìÆÇ´ï˚
+		MoveInfo mData;
+		mData = MoveInfo(MOV_PTN::SIGMOID, _state.trns.pos, { 250,179 }, 4.5);
+		SetMove(mData);
 
-	mData = MoveInfo(MOV_PTN::SIGMOID, { 250,179 }, {125, 358}, 4.5);
-	SetMove(mData);
+		mData = MoveInfo(MOV_PTN::SIGMOID, { 250,179 }, { 125, 358 }, 4.5);
+		SetMove(mData);
 
-	mData = MoveInfo(MOV_PTN::CYCLONE, { 125,358 }, { 125, 269.5 }, 1.0);
-	SetMove(mData);
+		mData = MoveInfo(MOV_PTN::CYCLONE, { 125,358 }, { 125, 269.5 }, 1.0);
+		SetMove(mData);
 
-	mData = MoveInfo(MOV_PTN::LINE, { 125,269.5 }, endPos, 0.0);
-	SetMove(mData);
+		mData = MoveInfo(MOV_PTN::LINE, { 125,269.5 }, endPos, 0.0);
+		SetMove(mData);
 
-	mData = MoveInfo(MOV_PTN::LATERAL, { 0.5,0 }, { 1.5,0 }, 0.0);
-	SetMove(mData);
+		mData = MoveInfo(MOV_PTN::LATERAL, { 0.5,0 }, { 1.5,0 }, 0.0);
+		SetMove(mData);
+	}
+	else if (_state.trns.pos.x <= 0)
+	{
+		//ç∂èoåªéûÇÃìÆÇ´ï˚
+		MoveInfo mData;
+		mData = MoveInfo(MOV_PTN::SIGMOID, _state.trns.pos, { 250,179 }, 4.5);
+		SetMove(mData);
+
+		mData = MoveInfo(MOV_PTN::SIGMOID, { 250,179 }, { 375, 358 }, 4.5);
+		SetMove(mData);
+
+		mData = MoveInfo(MOV_PTN::CYCLONE, { 375,358 }, { 375, 269.5 }, -1.0);
+		SetMove(mData);
+
+		mData = MoveInfo(MOV_PTN::LINE, { 375,269.5 }, endPos, 0.0);
+		SetMove(mData);
+
+		mData = MoveInfo(MOV_PTN::LATERAL, { 0.5,0 }, { 1.5,0 }, 0.0);
+		SetMove(mData);
+	}
 
 	_mOrder.second = 0;
 	_mOrder.first = _moveVec[_mOrder.second];

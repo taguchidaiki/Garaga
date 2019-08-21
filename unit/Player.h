@@ -1,6 +1,9 @@
 #pragma once
 #include "Obj.h"
+#include <vector>
 #include <Input/KeyState.h>
+
+class Shot;
 
 class Player :
 	public Obj
@@ -8,7 +11,7 @@ class Player :
 public:
 	Player();
 	Player(Vector2D  pos, float speed, std::string imageName, std::string fileName, Vector2 divSize, Vector2 divCnt, int id);
-	Player(STATUS state);
+	Player(STATUS& state);
 	~Player();
 
 	//ƒˆ‰¼‘zŠÖ”’u‚«ê
@@ -17,9 +20,11 @@ public:
 	UNIT_ID GetUnitType(void) override;
 
 	//ŠÖ”’u‚«ê
-
+	bool AddShot();
+	
 private:
 	bool Init(void);
 	std::unique_ptr<InputState> _input;
+	
 };
 

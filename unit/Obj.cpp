@@ -14,9 +14,33 @@ Obj::~Obj()
 
 void Obj::Draw(void)
 {
-	DrawRotaGraph(_state.trns.pos.x + _state.divSize.x / 2, _state.trns.pos.y + _state.divSize.y / 2,
-		1.0, _angle,
-		_animMap[_animKey][_animFlame].first, true);
+	if (_animMap.size() == 0)
+	{
+		DrawRotaGraph(_state.trns.pos.x + _state.divSize.x / 2, _state.trns.pos.y + _state.divSize.y / 2,
+			1.0, _angle,
+			IMAGE_ID(_state.imageName)[_state.id], true);
+	}
+	else
+	{
+		DrawRotaGraph(_state.trns.pos.x + _state.divSize.x / 2, _state.trns.pos.y + _state.divSize.y / 2,
+			1.0, _angle,
+			_animMap[_animKey][_animFlame].first, true);
+
+		if (_animCnt >= _animMap[_animKey][_animFlame].second)
+		{
+			if (_animMap[_animKey][_animFlame].first != -1)
+			{
+				_animFlame++;
+			}
+
+			if (_animFlame >= _animMap[_animKey].size())
+			{
+				_animCnt = 0;
+				_animFlame = 0;
+			}
+		}
+		_animCnt++;
+	}
 	/*DrawRotaGraph(_state.trns.pos.x + _state.divSize.x / 2, _state.trns.pos.y + _state.divSize.y / 2,
 				  1.0, PI / 2 * 180,
 				  _animMap[_animKey][_animFlame].first, true);*/
@@ -26,20 +50,7 @@ void Obj::Draw(void)
 	_dbgDrawPixel(_state.trns.pos.x, _state.trns.pos.y, 0xffffff);
 	//_dbgDrawFormatString(_pos.x, _pos.y - 10,0xff0000, "%d,%d", _pos.x, _pos.y);
 
-	if (_animCnt >= _animMap[_animKey][_animFlame].second)
-	{
-		if (_animMap[_animKey][_animFlame].first != -1)
-		{
-			_animFlame++;
-		}
-		
-		if (_animFlame >= _animMap[_animKey].size())
-		{
-			_animCnt = 0;
-			_animFlame = 0;
-		}
-	}
-	_animCnt++;
+	
 }
 
 void Obj::Init(std::string imageName, std::string fileName, Vector2 divSize, Vector2 divCnt, int id)
@@ -79,13 +90,13 @@ void Obj::Draw(int id)
 template<typename T>
 const Vector2Temple<T> Obj::pos(void) const
 {
-	return _state.pos;
+	return _state.trns.pos;
 }
 
 template<typename T>
 bool Obj::pos(const Vector2Temple<T> pos)
 {
-	_state.pos = pos;
+	_state.trns.pos = pos;
 	return true;
 }
 
@@ -118,6 +129,11 @@ bool Obj::animCnt(const int _animCnt)
 	return true;
 }
 
+const STATUS Obj::state(void) const
+{
+	return _state;
+}
+
 bool Obj::resetCnt(void)
 {
 	_animCnt = 0;
@@ -143,6 +159,13 @@ bool Obj::isAnimEnd(void)
 		return true;
 	}
 	return false;
+}
+
+bool Obj::callDeath(void)
+{
+	_alive = false;
+	animKey(ANIM::BLAST);
+	return true;
 }
 
 bool Obj::SetAnim(const ANIM key, AnimVector& data)
@@ -175,4 +198,9 @@ bool Obj::DestroyProc(void)
 	}
 
 	return true;
+}
+
+std::vector<shared_Obj>& Obj::listBegin()
+{
+	return _shotList;
 }
