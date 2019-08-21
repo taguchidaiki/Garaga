@@ -83,6 +83,8 @@ public:
 
 	const ANIM animKey(void) const;
 	bool animKey(const ANIM _animKey);
+	const int animCnt(void)const;
+	bool animCnt(const int _animCnt);
 	bool isAlive(void);
 	bool isDeath(void);
 	bool isAnimEnd(void);
@@ -97,6 +99,7 @@ protected:
 	STATUS _state;
 	bool _alive;
 	bool _death;
+	double _angle;
 	std::vector<MoveInfo> _moveVec;
 
 private:

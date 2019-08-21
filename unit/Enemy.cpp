@@ -7,11 +7,12 @@ Enemy::Enemy()
 	
 }
 
-Enemy::Enemy(STATUS& state)
+Enemy::Enemy(STATUS& state, Vector2D& endPos, int count)
 {
 	TRACE("エネミー生成\n");
+	animCnt(count);
 	Obj::Init(state);
-	Init();
+	Init(endPos);
 }
 
 
@@ -35,13 +36,22 @@ void Enemy::Update(void)
 		return; 
 	}
 
-	if (std::get<0>(_mOrder.first) == MOV_PTN::LINE)
+	/*if (std::get<0>(_mOrder.first) == MOV_PTN::LINE)
 	{
 		resetCnt();
-	}
+	}*/
 
 	_state.trns.mov = (*_moveCtl).Update(_state.trns,_mOrder);
 	_state.trns.pos += _state.trns.mov;
+
+	if (std::get<0>(_mOrder.first) != MOV_PTN::LATERAL)
+	{
+		_angle = atan2(_state.trns.mov.y, _state.trns.mov.x) + (90.0 * PI / 180);
+	}
+	else if (std::get<0>(_mOrder.first) == MOV_PTN::LATERAL)
+	{
+		_angle = atan2(_state.trns.mov.y, _state.trns.mov.x);
+	}
 	
 	if (_mOrder.second < _moveVec.size() && oldOrder != _mOrder.second)
 	{
@@ -60,7 +70,7 @@ UNIT_ID Enemy::GetUnitType(void)
 	return UNIT_ID::ENEMY;
 }
 
-bool Enemy::Init(void)
+bool Enemy::Init(Vector2D& endPos)
 {
 	AnimVector data;
 	data.reserve(2);
@@ -88,7 +98,7 @@ bool Enemy::Init(void)
 	mData = MoveInfo(MOV_PTN::CYCLONE, { 125,358 }, { 125, 269.5 }, 1.0);
 	SetMove(mData);
 
-	mData = MoveInfo(MOV_PTN::LINE, { 125,269.5 }, { 0,0 }, 0.0);
+	mData = MoveInfo(MOV_PTN::LINE, { 125,269.5 }, endPos, 0.0);
 	SetMove(mData);
 
 	mData = MoveInfo(MOV_PTN::LATERAL, { 0.5,0 }, { 1.5,0 }, 0.0);

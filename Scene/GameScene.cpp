@@ -27,12 +27,11 @@ unique_Base GameScene::Update(unique_Base own)
 		return std::make_unique<GameClear>();
 	}
 	
-	if ((*_input).state(INPUT_ID::ENTER).first && !(*_input).state(INPUT_ID::ENTER).second && count < 21)
+	if ((*_input).state(INPUT_ID::ENTER).first && !(*_input).state(INPUT_ID::ENTER).second && _count < 40)
 	{
 		AddEne();
-		count++;
+		_count++;
 	}
-	
 
 	for (auto obj : _objList)
 	{
@@ -88,8 +87,7 @@ SCN_ID GameScene::GetScnID(void)
 }
 
 bool GameScene::Init(void)
-{
-	
+{	
 	TRACE("%d\n", GetScnID());
 	TRACE("GameScene\n");
 
@@ -155,6 +153,11 @@ bool GameScene::AddEne()
 {
 	FILE *file;
 	STATUS _status;
+	int count = 0;
+	if (!_objList.empty())
+	{
+		count = _objList.back()->animCnt();
+	}
 	fopen_s(&file, "data/enemyState.csv", "r");
 	fscanf_s(file, "%lf,%lf,%lf,%lf,%f,%d,%[^,],%[^,],%d,%d,%d,%d",
 		&_status.trns.pos.x,
@@ -163,7 +166,6 @@ bool GameScene::AddEne()
 		&_status.trns.mov.y,
 		&_status.trns.speed,
 		&_status.id,
-
 		_status.imageName.c_str(),10,
 		_status.fileName.c_str(), 20,
 		&_status.divSize.x,
@@ -172,6 +174,6 @@ bool GameScene::AddEne()
 		&_status.divCnt.y);
 
 	fclose(file);
-	_objList.emplace_back(new Enemy(_status));
+	_objList.emplace_back(new Enemy(_status, _endList[_count], count));
 	return false;
 }

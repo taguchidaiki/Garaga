@@ -15,7 +15,7 @@ Obj::~Obj()
 void Obj::Draw(void)
 {
 	DrawRotaGraph(_state.trns.pos.x + _state.divSize.x / 2, _state.trns.pos.y + _state.divSize.y / 2,
-		1.0, atan2(_state.trns.mov.y, _state.trns.mov.x) + (90.0 * PI / 180),
+		1.0, _angle,
 		_animMap[_animKey][_animFlame].first, true);
 	/*DrawRotaGraph(_state.trns.pos.x + _state.divSize.x / 2, _state.trns.pos.y + _state.divSize.y / 2,
 				  1.0, PI / 2 * 180,
@@ -104,6 +104,17 @@ bool Obj::animKey(const ANIM _animKey)
 	resetCnt();
 
 	this->_animKey = _animKey;
+	return true;
+}
+
+const int Obj::animCnt(void) const
+{
+	return _animCnt;
+}
+
+bool Obj::animCnt(const int _animCnt)
+{
+	this->_animCnt = _animCnt;
 	return true;
 }
 

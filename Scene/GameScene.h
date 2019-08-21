@@ -25,6 +25,6 @@ private:
 	Vector2D _endList[40];
 
 	std::vector<shared_Obj> _objList;
-	int count = 0;
+	int _count = 0;
 };
 

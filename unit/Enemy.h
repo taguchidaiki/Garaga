@@ -20,7 +20,7 @@ class Enemy :
 {
 public:
 	Enemy();
-	Enemy(STATUS& state);
+	Enemy(STATUS& state, Vector2D& endPos, int count);
 	~Enemy();
 
 	//ƒˆ‰¼‘zŠÖ”’u‚«ê
@@ -32,11 +32,9 @@ public:
 
 
 private:
-	bool Init(void);
+	bool Init(Vector2D& endPos);
 	
 	std::unique_ptr<EnemyMove> _moveCtl;
 	MoveOrder _mOrder;
-	
-
 };
 
