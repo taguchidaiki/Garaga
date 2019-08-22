@@ -1,5 +1,7 @@
 #include "GameScene.h"
 #include <algorithm>
+#include <random>
+#include <time.h>
 #include "GameClear.h"
 #include <common/SceneMng.h>
 #include <unit/Player.h>
@@ -28,10 +30,11 @@ unique_Base GameScene::Update(unique_Base own)
 		return std::make_unique<GameClear>();
 	}
 
-	if ((*_input).state(INPUT_ID::ENTER).first && !(*_input).state(INPUT_ID::ENTER).second && _count < 40)
+	if (_createTimer >= 150 && _count < 40)
 	{
-		AddEne();
-		_count++;
+		CreateFom();
+		_createTimer = 0;
+		
 	}
 
 	for (auto obj : _objList)
@@ -70,6 +73,7 @@ unique_Base GameScene::Update(unique_Base own)
 	
 	Draw();
 
+	_createTimer++;
 	//ƒ[ƒJƒ‹‚É‚ ‚éunique_Base‚ÌŠ—LŒ ‚ð“n‚µ‚Ä‚ ‚°‚é
 	return std::move(own);
 }
@@ -121,6 +125,8 @@ bool GameScene::Init(void)
 	TRACE("%d\n", GetScnID());
 	TRACE("GameScene\n");
 
+	_count = 0;
+	_createTimer = 0;
 	_ghGameScreen = MakeScreen(lpSceneMng.gameScreenSize.x, lpSceneMng.gameScreenSize.y, true);
 
 	ImageMng::GetInstance().GetID("kyara", "image/char.png", { 30,32 }, { 10,10 });
@@ -129,27 +135,31 @@ bool GameScene::Init(void)
 
 	FILE *file;
 
-	fopen_s(&file, "data/firstPos.csv", "r");
-	for (int i = 0; i < 6; ++i)
+	if (fopen_s(&file, "data/firstPos.csv", "r") == 0)
 	{
-		fscanf_s(file, "%lf,%lf",
-			&_addPList[i].x,
-			&_addPList[i].y);
+		for (int i = 0; i < 6; ++i)
+		{
+			fscanf_s(file, "%lf,%lf",
+				&_addPList[i].x,
+				&_addPList[i].y);
+		}
 	}
 	fclose(file);
 
-	fopen_s(&file, "data/endPos.csv", "r");
-	for (int i = 0; i < 40; ++i)
+	if (fopen_s(&file, "data/endPos.csv", "r") == 0)
 	{
-		fscanf_s(file, "%lf,%lf",
-			&_endList[i].x,
-			&_endList[i].y);
+		for (int i = 0; i < 40; ++i)
+		{
+			fscanf_s(file, "%lf,%lf,%d",
+				&_endList[i].first.x,
+				&_endList[i].first.y,
+				&_endList[i].second);
+		}
 	}
-
 	fclose(file);
 
 	AddPlayer();
-
+	srand((unsigned int)time(NULL));
 	_input = std::make_unique<KeyState>();
 	
 	return true;
@@ -182,7 +192,7 @@ bool GameScene::AddPlayer()
 	return true;
 }
 
-bool GameScene::AddEne()
+bool GameScene::AddEne(Vector2D endPos, int movTime)
 {
 	FILE *file;
 	STATUS _status;
@@ -208,13 +218,29 @@ bool GameScene::AddEne()
 		&_status.divSize.y,
 		&_status.divCnt.x,
 		&_status.divCnt.y);
-
+	 
 	fclose(file);
 
-	srand((unsigned int)time(NULL));
-	_status.trns.pos = _addPList[rand() % 6];
+	_status.trns.pos = endPos;
+	_status.id = _endList[_count].second;
 
-	_objList.emplace_back(new Enemy(_status, _endList[_count], count));
+	_objList.emplace_back(new Enemy(_status, _endList[_count].first, count, movTime));
+	_count++;
+	return true;
+}
+
+bool GameScene::CreateFom()
+{
+	int movTime = 0;
+	Vector2D pos = _addPList[rand() % 6];
+	for (int i = 0; i < 3; i++)
+	{
+		if (_count < 40)
+		{
+			AddEne(pos, movTime);
+		}
+		movTime += 15;
+	}
 	return true;
 }
 

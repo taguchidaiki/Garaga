@@ -58,7 +58,7 @@ void Shot::Update(void)
 
 	if (_state.trns.pos.y <= 0)
 	{
-		_death = true;
+		_alive = false;
 	}
 }
 

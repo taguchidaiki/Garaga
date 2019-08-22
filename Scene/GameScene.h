@@ -18,16 +18,18 @@ public:
 private:
 	bool Init(void);
 	bool AddPlayer();
-	bool AddEne();
+	bool AddEne(Vector2D endPos, int movTime);
+	bool CreateFom();
 	
 	bool RectVsRect(STATUS stateA, STATUS stateB, bool flagA, bool flagB);
 	std::unique_ptr<InputState> _input;
 
 	Vector2D _addPList[6];
 
-	Vector2D _endList[40];
+	std::pair<Vector2D, int> _endList[40];
 
 	std::vector<shared_Obj> _objList;
-	int _count = 0;
+	int _count;										//敵のカウンタ
+	int _createTimer;								//敵出現用のカウンタ
 };
 

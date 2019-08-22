@@ -3,6 +3,7 @@
 EnemyMove::EnemyMove()
 {
 	count = 0.0f;
+	func[static_cast<int>(MOV_PTN::STANDBY)] = &EnemyMove::StandBy;
 	func[static_cast<int>(MOV_PTN::LINE)] = &EnemyMove::Line;
 	func[static_cast<int>(MOV_PTN::SIGMOID)] = &EnemyMove::Sigmoid;
 	func[static_cast<int>(MOV_PTN::CYCLONE)] = &EnemyMove::Cyclone;
@@ -98,6 +99,19 @@ float EnemyMove::Sigmoid(float x, float a)
 //	return mov;
 //}
 
+Vector2D EnemyMove::StandBy(const TRNS & trns, MoveOrder & order)
+{
+	count++;
+
+	if (count >= std::get<3>(order.first))
+	{
+		count = 0;
+		order.second++;
+	}
+	
+	return { 0,0 };
+}
+
 Vector2D EnemyMove::Sigmoid(const TRNS & trns, MoveOrder& order)
 {
 	Vector2D mov;
@@ -131,7 +145,7 @@ Vector2D EnemyMove::Cyclone(const TRNS & trns, MoveOrder& order)
 	Vector2D mov;
 	Vector2D start = trns.pos;
 	Vector2D end = std::get<2>(order.first);
-	double rad = Magnitude(start - end) - 2.5;
+	double rad = Magnitude(start - end) - 1.5;
 
 	if (rad <= 0)
 	{
@@ -143,7 +157,7 @@ Vector2D EnemyMove::Cyclone(const TRNS & trns, MoveOrder& order)
 	Vector2D vec = { start.x - end.x, start.y - end.y };
 	double theta = atan2(vec.y, vec.x);
 
-	theta += std::get<3>(order.first) * (10.0 * PI / 180);
+	theta += std::get<3>(order.first) * (5.0 * PI / 180);
 
 	Vector2D nextPos;
 	nextPos.x = end.x + rad * cos(theta);

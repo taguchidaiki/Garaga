@@ -7,12 +7,12 @@ Enemy::Enemy()
 	
 }
 
-Enemy::Enemy(STATUS& state, Vector2D& endPos, int count)
+Enemy::Enemy(STATUS& state, Vector2D& endPos, int count,int standTime)
 {
 	TRACE("エネミー生成\n");
 	animCnt(count);
 	Obj::Init(state);
-	Init(endPos);
+	Init(endPos, standTime);
 }
 
 
@@ -60,7 +60,7 @@ void Enemy::Draw(void)
 				  _animMap[_animKey][_animFlame].first, true);*/
 				  //DrawGraph(_pos.x, _pos.y, _animMap[_animKey][_animFlame].first, true);
 
-				  //_dbgDrawBox(_state.trns.pos.x, _state.pos.trns.y, _state.trns.pos.x + _state.divSize.x, _state.trns.pos.y + _state.divSize.y, 0x00ff00, true);
+	//_dbgDrawBox(_state.trns.pos.x, _state.trns.pos.y, _state.trns.pos.x + _state.divSize.x, _state.trns.pos.y + _state.divSize.y, 0x00ff00, true);
 	_dbgDrawPixel(_state.trns.pos.x, _state.trns.pos.y, 0xffffff);
 	//_dbgDrawFormatString(_pos.x, _pos.y - 10,0xff0000, "%d,%d", _pos.x, _pos.y);
 }
@@ -108,7 +108,7 @@ UNIT_ID Enemy::GetUnitType(void)
 	return UNIT_ID::ENEMY;
 }
 
-bool Enemy::Init(Vector2D& endPos)
+bool Enemy::Init(Vector2D& endPos, int standTime)
 {
 	AnimVector data;
 	data.reserve(2);
@@ -130,6 +130,9 @@ bool Enemy::Init(Vector2D& endPos)
 	{
 		//右出現時の動き方
 		MoveInfo mData;
+		mData = MoveInfo(MOV_PTN::STANDBY, _state.trns.pos, _state.trns.pos, standTime);
+		SetMove(mData);
+
 		mData = MoveInfo(MOV_PTN::SIGMOID, _state.trns.pos, { 250,179 }, 4.5);
 		SetMove(mData);
 
@@ -149,6 +152,9 @@ bool Enemy::Init(Vector2D& endPos)
 	{
 		//左出現時の動き方
 		MoveInfo mData;
+		mData = MoveInfo(MOV_PTN::STANDBY, _state.trns.pos, _state.trns.pos, standTime);
+		SetMove(mData);
+
 		mData = MoveInfo(MOV_PTN::SIGMOID, _state.trns.pos, { 250,179 }, 4.5);
 		SetMove(mData);
 

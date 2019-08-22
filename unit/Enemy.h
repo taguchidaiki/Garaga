@@ -8,9 +8,9 @@ using MoveOrder = std::pair<MoveInfo, int>;
 
 enum class ENE_VAL
 {
-	BUG = 1,
-	BUTF,
-	CAP,
+	BUG = 10,
+	BUTF = 20,
+	CAP = 30,
 	MAX
 };
 
@@ -20,7 +20,7 @@ class Enemy :
 {
 public:
 	Enemy();
-	Enemy(STATUS& state, Vector2D& endPos, int count);
+	Enemy(STATUS& state, Vector2D& endPos, int count,int standTime);
 	~Enemy();
 
 	//ƒˆ‰¼‘zŠÖ”’u‚«ê
@@ -32,7 +32,7 @@ public:
 
 
 private:
-	bool Init(Vector2D& endPos);
+	bool Init(Vector2D& endPos, int standTime);
 	
 	std::unique_ptr<EnemyMove> _moveCtl;
 	MoveOrder _mOrder;

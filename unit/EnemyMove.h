@@ -6,6 +6,7 @@
 
 enum class MOV_PTN
 {
+	STANDBY,
 	LINE,
 	SIGMOID,
 	CYCLONE,
@@ -33,6 +34,7 @@ private:
 	////(スタート位置、ゴール位置とゴール範囲、移動情報)
 	//Vector2D Line(Vector2D start, Vector2D end, const TRNS& trns);
 
+	Vector2D StandBy(const TRNS& trns, MoveOrder& order);
 	Vector2D Sigmoid(const TRNS& trns, MoveOrder& order);
 	Vector2D Cyclone(const TRNS& trns, MoveOrder& order);
 	Vector2D Line(const TRNS& trns, MoveOrder& order);
